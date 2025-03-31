@@ -1,0 +1,131 @@
+---@diagnostic disable: undefined-global
+
+-- require("keymaps")
+
+vim.g.mapleader = " " -- Sets <Space> as the leader key
+
+---------------------------
+-- Configure diagnostics --
+---------------------------
+vim.o.updatetime = 300
+
+vim.diagnostic.config({
+	virtual_text = false,
+	float = {
+		focusable = false,
+		border = "rounded",
+		source = "if_many",
+		header = "",
+		prefix = "",
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false, -- Don't update diagnostics while typing
+})
+
+----------------------
+-- General Settings --
+----------------------
+-- Set clipboard
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
+
+-- Set tab settings
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+-- Set linenumbervisibility
+vim.wo.number = true
+-- vim.wo.relativenumber = true
+
+-------------------------------
+-- Configure window settings --
+-------------------------------
+vim.api.nvim_set_keymap("n", "<C-h>", ":vertical resize -2<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-l>", ":vertical resize +2<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-j>", ":resize +2<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-k>", ":resize -2<CR>", { noremap = true, silent = true })
+
+---------------------------------
+-- Configure general utilities --
+---------------------------------
+vim.api.nvim_set_keymap("n", "<Leader>us", ":%!sort<CR>", { noremap = true, silent = true, desc = "[S]ort Lines" })
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>ut",
+	":belowright split | resize " .. math.floor(vim.o.lines / 3) .. " | terminal<CR>",
+	{ noremap = true, silent = true, desc = "[T]erminal" }
+)
+
+---------------------------------
+-- Configure toggles --
+---------------------------------
+require("render-markdown").setup({})
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>tm",
+	":RenderMarkdown toggle<CR>",
+	{ noremap = true, silent = true, desc = "[M]arkdown" }
+)
+vim.keymap.set("n", "<leader>tl", function()
+	vim.wo.number = not vim.wo.number
+end, { noremap = true, silent = true, desc = "[L]inenumbers" })
+
+-------------------------------------
+-- Configure search/find utilities --
+-------------------------------------
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[H]elp" })
+vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[F]iles" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[G]rep" })
+vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[B]uffers" })
+vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[W]ord" })
+
+---------------------------
+-- Configure bufferlines --
+---------------------------
+require("bufferline").setup({
+	options = {
+		separator_style = "thin",
+	},
+})
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>bn",
+	":BufferLineCycleNext<CR>",
+	{ noremap = true, silent = true, desc = "[N]ext" }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>bp",
+	":BufferLineCyclePrev<CR>",
+	{ noremap = true, silent = true, desc = "[P]revious" }
+)
+vim.api.nvim_set_keymap("n", "<Leader>bs", ":BufferLinePick<CR>", { noremap = true, silent = true, desc = "[S]elect" })
+
+----------------------------
+-- Configure LSP settings --
+----------------------------
+vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = true,
+	signs = true,
+	update_in_insert = true,
+})
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>cf",
+	':lua require("conform").format()<CR>',
+	{ noremap = true, silent = true, desc = "[F]ormat" }
+)
+
+---------------------------
+-- Configure UI settings --
+---------------------------
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
