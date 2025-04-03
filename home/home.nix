@@ -18,6 +18,7 @@ let
   optionalApps = [
     (import ./alacritty/default.nix { inherit pkgs userTheme; })
     (import ./tmux/default.nix { inherit pkgs userTheme; })
+    (import ./k9s/default.nix { inherit pkgs userTheme; })
   ];
 in
 {

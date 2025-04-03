@@ -106,6 +106,7 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap("n", "<Leader>bs", ":BufferLinePick<CR>", { noremap = true, silent = true, desc = "[S]elect" })
 
+vim.api.nvim_set_keymap("n", "<Leader>bw", ":w<CR>", { noremap = true, silent = true, desc = "[W]rite" })
 ----------------------------
 -- Configure LSP settings --
 ----------------------------
