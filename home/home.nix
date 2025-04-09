@@ -45,7 +45,7 @@ in
         "color-scheme" = "prefer-dark";
       };
       "org/gnome/shell" = {
-        "favourite-apps" = [
+        favorite-apps = [
           "brave-browser.desktop"
         ];
       };
@@ -59,11 +59,13 @@ in
     (import ./nvim/default.nix { inherit pkgs userTheme; })
   ] ++ pkgs.lib.optionals (essentialsOnly == false) optionalApps;
 
-  home.packages = [
-    pkgs.atool
-    pkgs.httpie
-    pkgs.jellyfin-media-player
-    pkgs.go
+  home.packages = with pkgs; [
+    atool
+    httpie
+    jellyfin-media-player
+    spotify
+    go
+    dart
   ];
 
   programs = {
@@ -73,6 +75,10 @@ in
       enable = true;
       userName = "ferrazzo";
       userEmail = "luca733@gmail.com";
+      extraConfig = {
+        init.defaultBranch = "main";
+        safe.directory = "/etc/nixos";
+      };
     };
     chromium = {
       enable = true;

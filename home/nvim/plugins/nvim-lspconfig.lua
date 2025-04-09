@@ -60,6 +60,12 @@ require("lspconfig").lua_ls.setup({
 	settings = {},
 })
 
+require("lspconfig").dartls.setup({
+	on_attach = lsp_on_attach, -- Attach the diagnostics and keymap setup
+	capabilities = capabilities, -- Use your defined LSP capabilities (if any)
+	settings = {},
+})
+
 require("lspconfig").gopls.setup({
 	on_attach = lsp_on_attach, -- Attach the diagnostics and keymap setup
 	capabilities = capabilities, -- Use your defined LSP capabilities (if any)
