@@ -45,7 +45,7 @@ in
         "color-scheme" = "prefer-dark";
       };
       "org/gnome/shell" = {
-        favourite-apps = [
+        favorite-apps = [
           "brave-browser.desktop"
         ];
       };
