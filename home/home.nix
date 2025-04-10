@@ -19,7 +19,6 @@ let
     (import ./alacritty/default.nix { inherit pkgs userTheme; })
     (import ./tmux/default.nix { inherit pkgs userTheme; })
     (import ./k9s/default.nix { inherit pkgs userTheme; })
-    (import ./git/default.nix { inherit pkgs userTheme; })
   ];
 in
 {
@@ -59,6 +58,7 @@ in
   #Manage applications
   imports = [
     (import ./nvim/default.nix { inherit pkgs userTheme; })
+    (import ./git/default.nix { inherit pkgs userTheme; })
   ] ++ pkgs.lib.optionals (essentialsOnly == false) optionalApps;
 
   home.packages = with pkgs; [
