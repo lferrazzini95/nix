@@ -1,7 +1,8 @@
 require("which-key").setup({
 	spec = {
 		{ "<leader>c", group = "[C]ode", mode = { "n", "v" } },
-		{ "<leader>d", group = "[D]ocument", mode = { "n", "v" } },
+		{ "<leader>d", group = "[D]iagnostic", mode = { "n", "v" } },
+		{ "<leader>g", group = "[G]o to", mode = { "n", "v" } },
 		{ "<leader>b", group = "[B]uffer", mode = { "n", "v" } },
 		{ "<leader>s", group = "[S]earch", mode = { "n", "v" } },
 		{ "<leader>w", group = "[W]orkspace", mode = { "n", "v" } },
