@@ -47,7 +47,7 @@ in
       "org/gnome/shell" = {
         favorite-apps = [
           "brave-browser.desktop"
-          "alacritty.desktop"
+          "Alacritty.desktop"
         ];
       };
     };

@@ -130,3 +130,46 @@ vim.api.nvim_set_keymap(
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
+
+-------------------
+-- Configure LSP --
+-------------------
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local bufnr = args.buf
+
+		vim.keymap.set("n", "<leader>ds", function()
+			vim.diagnostic.open_float(nil, {
+				focusable = false,
+				border = "rounded", -- Set border for the diagnostic float here
+				scope = "line", -- Show diagnostics for the current line
+			})
+		end, {
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			desc = "[S]how",
+		})
+
+		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			desc = "[D]efinition",
+		})
+
+		vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			desc = "[I]mplementation",
+		})
+
+		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.definition, {
+			buffer = bufnr,
+			noremap = true,
+			silent = true,
+			desc = "[R]eferences",
+		})
+	end,
+})
