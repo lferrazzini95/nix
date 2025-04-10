@@ -2,7 +2,7 @@
 let
 in
 {
-  git = {
+  programs.git = {
     enable = true;
     userName = "ferrazzo";
     userEmail = "luca733@gmail.com";
