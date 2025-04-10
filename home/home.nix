@@ -19,6 +19,7 @@ let
     (import ./alacritty/default.nix { inherit pkgs userTheme; })
     (import ./tmux/default.nix { inherit pkgs userTheme; })
     (import ./k9s/default.nix { inherit pkgs userTheme; })
+    (import ./git/default.nix { inherit pkgs userTheme; })
   ];
 in
 {
@@ -72,15 +73,6 @@ in
   programs = {
     home-manager.enable = true;
     bash.enable = true;
-    git = {
-      enable = true;
-      userName = "ferrazzo";
-      userEmail = "luca733@gmail.com";
-      extraConfig = {
-        init.defaultBranch = "main";
-        safe.directory = "/etc/nixos";
-      };
-    };
     chromium = {
       enable = true;
       package = pkgs.brave;
