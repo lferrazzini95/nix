@@ -55,7 +55,7 @@
                 }) userList
               );
             }
-            ./nixos/configuration.nix
+            ./configuration.nix
           ];
         };
       };

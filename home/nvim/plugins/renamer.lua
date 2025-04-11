@@ -4,7 +4,6 @@ require("renamer").setup({
 	show_cursor = true,
 })
 
--- Correct key mapping for renaming in visual mode
 vim.api.nvim_set_keymap("v", "<leader>ur", '<cmd>lua require("renamer").rename()<CR>', {
 	noremap = true,
 	silent = true,

@@ -1,15 +1,17 @@
 { pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
-  
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true; 
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Intel Graphics Driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -22,7 +24,7 @@
     "iwlwifi.uapsd_disable=0"
     "iwlmvm.power_scheme=1"
   ];
-  
+
   systemd.targets.sleep.enable = true;
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = true;
@@ -38,7 +40,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
@@ -56,7 +58,7 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  
+
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
@@ -66,8 +68,8 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = ["FiraCode Nerd Font Mono"];
-        sansSerif = ["FiraCode Nerd Font"];
+        monospace = [ "FiraCode Nerd Font Mono" ];
+        sansSerif = [ "FiraCode Nerd Font" ];
       };
     };
   };
@@ -110,9 +112,12 @@
   users.users.luca = {
     isNormalUser = true;
     description = "luca";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -128,8 +133,8 @@
     xclip
     gnugrep
     ripgrep
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

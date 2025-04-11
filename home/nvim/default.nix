@@ -65,6 +65,7 @@ in
       black
       nixfmt-rfc-style
       stylua
+      lua-language-server
     ];
   };
 }
