@@ -23,16 +23,11 @@
       system = "x86_64-linux";
       userList = [
         {
-          username = "root";
-          userTheme = "everforest"; # everforest or nordic
-          essentialsOnly = true;
-        }
-        {
           username = "luca";
           userTheme = "everforest"; # everforest or nordic
-          essentialsOnly = false;
         }
       ];
+      is_virtual = false;
       # theme = "everforest"; #everforest or nordic
     in
     {
@@ -50,7 +45,6 @@
                     pkgs = pkgs;
                     username = user.username;
                     userTheme = user.userTheme;
-                    essentialsOnly = user.essentialsOnly;
                   };
                 }) userList
               );

@@ -2,7 +2,6 @@
   pkgs,
   username,
   userTheme,
-  essentialsOnly,
   ...
 }:
 let
@@ -14,12 +13,6 @@ let
       pkgs.everforest-gtk-theme
     else
       pkgs.defaultTheme;
-
-  optionalApps = [
-    (import ./alacritty/default.nix { inherit pkgs userTheme; })
-    (import ./tmux/default.nix { inherit pkgs userTheme; })
-    (import ./k9s/default.nix { inherit pkgs userTheme; })
-  ];
 in
 {
   #Manage Appearance
@@ -59,15 +52,22 @@ in
   imports = [
     (import ./nvim/default.nix { inherit pkgs userTheme; })
     (import ./git/default.nix { inherit pkgs userTheme; })
-  ] ++ pkgs.lib.optionals (essentialsOnly == false) optionalApps;
-
+    (import ./alacritty/default.nix { inherit pkgs userTheme; })
+    (import ./tmux/default.nix { inherit pkgs userTheme; })
+    (import ./k9s/default.nix { inherit pkgs userTheme; })
+  ];
   home.packages = with pkgs; [
     atool
     httpie
-    jellyfin-media-player
-    spotify
+
+    #programming
     go
     dart
+
+    #hobby
+    bambu-studio
+    jellyfin-media-player
+    spotify
   ];
 
   programs = {
