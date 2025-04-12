@@ -50,9 +50,7 @@ in
   home.stateVersion = "24.05";
   #Manage applications
   imports = [
-    ./nvim/default.nix
-
-    # (import ./nvim/default.nix { inherit pkgs userTheme; })
+    (import ./nvim/default.nix { inherit pkgs userTheme; })
     (import ./git/default.nix { inherit pkgs userTheme; })
     (import ./alacritty/default.nix { inherit pkgs userTheme; })
     (import ./tmux/default.nix { inherit pkgs userTheme; })
