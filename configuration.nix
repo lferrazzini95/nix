@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ./hosts/${host}/hardware-configuration.nix
   ];
 
   nix.settings.experimental-features = [

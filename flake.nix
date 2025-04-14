@@ -27,8 +27,7 @@
           userTheme = "everforest"; # everforest or nordic
         }
       ];
-      is_virtual = false;
-      # theme = "everforest"; #everforest or nordic
+      host = "laptop";
     in
     {
       nixosConfigurations = {
@@ -49,7 +48,7 @@
                 }) userList
               );
             }
-            ./configuration.nix
+            (import ./configuration.nix { inherit host; })
           ];
         };
       };
