@@ -5,7 +5,6 @@
   ...
 }:
 let
-  desktopPath = "org/gnome/desktop";
   themePackage =
     if userTheme == "nordic" then
       pkgs.nordic
@@ -26,15 +25,15 @@ in
   dconf = {
     enable = true;
     settings = {
-      "${desktopPath}/background" = {
+      "org/gnome/desktop/background" = {
         "picture-uri" = "/home/${username}/.background-image";
         "picture-uri-dark" = "/home/${username}/.background-image";
       };
-      "${desktopPath}/screensaver" = {
+      "org/gnome/desktop/screensaver" = {
         "picture-uri" = "/home/${username}/.background-image";
         "picture-uri-dark" = "/home/${username}/.background-image";
       };
-      "${desktopPath}/interface" = {
+      "org/gnome/desktop/interface" = {
         "color-scheme" = "prefer-dark";
       };
       "org/gnome/shell" = {
