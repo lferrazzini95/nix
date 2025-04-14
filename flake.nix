@@ -48,7 +48,7 @@
                 }) userList
               );
             }
-            (import ./configuration.nix { inherit host; })
+            (import ./configuration.nix { inherit pkgs host; })
           ];
         };
       };
