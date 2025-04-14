@@ -2,11 +2,9 @@
   pkgs,
   username,
   userTheme,
-  essentialsOnly,
   ...
 }:
 let
-  desktopPath = "org/gnome/desktop";
   themePackage =
     if userTheme == "nordic" then
       pkgs.nordic
@@ -14,12 +12,6 @@ let
       pkgs.everforest-gtk-theme
     else
       pkgs.defaultTheme;
-
-  optionalApps = [
-    (import ./alacritty/default.nix { inherit pkgs userTheme; })
-    (import ./tmux/default.nix { inherit pkgs userTheme; })
-    (import ./k9s/default.nix { inherit pkgs userTheme; })
-  ];
 in
 {
   #Manage Appearance
@@ -33,15 +25,15 @@ in
   dconf = {
     enable = true;
     settings = {
-      "${desktopPath}/background" = {
+      "org/gnome/desktop/background" = {
         "picture-uri" = "/home/${username}/.background-image";
         "picture-uri-dark" = "/home/${username}/.background-image";
       };
-      "${desktopPath}/screensaver" = {
+      "org/gnome/desktop/screensaver" = {
         "picture-uri" = "/home/${username}/.background-image";
         "picture-uri-dark" = "/home/${username}/.background-image";
       };
-      "${desktopPath}/interface" = {
+      "org/gnome/desktop/interface" = {
         "color-scheme" = "prefer-dark";
       };
       "org/gnome/shell" = {
@@ -59,15 +51,22 @@ in
   imports = [
     (import ./nvim/default.nix { inherit pkgs userTheme; })
     (import ./git/default.nix { inherit pkgs userTheme; })
-  ] ++ pkgs.lib.optionals (essentialsOnly == false) optionalApps;
-
+    (import ./alacritty/default.nix { inherit pkgs userTheme; })
+    (import ./tmux/default.nix { inherit pkgs userTheme; })
+    (import ./k9s/default.nix { inherit pkgs userTheme; })
+  ];
   home.packages = with pkgs; [
     atool
     httpie
-    jellyfin-media-player
-    spotify
+
+    #programming
     go
     dart
+
+    #hobby
+    bambu-studio
+    jellyfin-media-player
+    spotify
   ];
 
   programs = {

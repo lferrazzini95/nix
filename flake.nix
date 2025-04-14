@@ -23,17 +23,11 @@
       system = "x86_64-linux";
       userList = [
         {
-          username = "root";
-          userTheme = "everforest"; # everforest or nordic
-          essentialsOnly = true;
-        }
-        {
           username = "luca";
           userTheme = "everforest"; # everforest or nordic
-          essentialsOnly = false;
         }
       ];
-      # theme = "everforest"; #everforest or nordic
+      host = "laptop";
     in
     {
       nixosConfigurations = {
@@ -50,12 +44,11 @@
                     pkgs = pkgs;
                     username = user.username;
                     userTheme = user.userTheme;
-                    essentialsOnly = user.essentialsOnly;
                   };
                 }) userList
               );
             }
-            ./configuration.nix
+            (import ./configuration.nix { inherit host; })
           ];
         };
       };
