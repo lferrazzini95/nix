@@ -59,6 +59,9 @@ in
     atool
     httpie
 
+    #administration
+    kubectl
+
     #programming
     go
     dart
