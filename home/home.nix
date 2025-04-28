@@ -74,7 +74,6 @@ in
 
   services.syncthing = {
     enable = true;
-    user = username;
   };
 
   programs = {
