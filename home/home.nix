@@ -49,11 +49,11 @@ in
   home.stateVersion = "24.05";
   #Manage applications
   imports = [
-    (import ./nvim/default.nix { inherit pkgs userTheme; })
-    (import ./git/default.nix { inherit pkgs userTheme; })
-    (import ./alacritty/default.nix { inherit pkgs userTheme; })
-    (import ./tmux/default.nix { inherit pkgs userTheme; })
-    (import ./k9s/default.nix { inherit pkgs userTheme; })
+    (import ./apps/nvim/default.nix { inherit pkgs userTheme; })
+    (import ./apps/git/default.nix { inherit pkgs userTheme; })
+    (import ./apps/alacritty/default.nix { inherit pkgs userTheme; })
+    (import ./apps/tmux/default.nix { inherit pkgs userTheme; })
+    (import ./apps/k9s/default.nix { inherit pkgs userTheme; })
   ];
   home.packages = with pkgs; [
     atool
@@ -78,6 +78,9 @@ in
     chromium = {
       enable = true;
       package = pkgs.brave;
+    };
+    syncthing = {
+      enable = true;
     };
   };
 }
