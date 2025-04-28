@@ -72,6 +72,11 @@ in
     spotify
   ];
 
+  services.syncthing = {
+    enable = true;
+    user = username;
+  };
+
   programs = {
     home-manager.enable = true;
     bash.enable = true;
