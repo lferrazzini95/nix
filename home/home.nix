@@ -79,8 +79,5 @@ in
       enable = true;
       package = pkgs.brave;
     };
-    syncthing = {
-      enable = true;
-    };
   };
 }
