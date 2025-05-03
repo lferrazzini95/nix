@@ -42,7 +42,7 @@
   networking.networkmanager = {
     enable = true;
     wifi.powersafe = 2;
-  }
+  };
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
