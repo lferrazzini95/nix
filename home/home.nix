@@ -84,6 +84,7 @@ in
     jellyfin-media-player
     spotify
     steam
+    reaper
   ];
 
   home.file = {
