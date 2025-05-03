@@ -87,7 +87,7 @@ in
 
   home.file = {
     ".local/bin/gpf" = {
-      source = .scripts/gpf;
+      source = ./scripts/gpf;
       executable = true;
     };
   };
