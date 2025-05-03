@@ -26,9 +26,9 @@
   ];
 
   systemd.targets.sleep.enable = true;
-  systemd.targets.suspend.enable = true;
+  systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = true;
-  systemd.targets.hybrid-sleep.enable = true;
+  systemd.targets.hybrid-sleep.enable = false;
 
   networking.hostName = "nixos"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
