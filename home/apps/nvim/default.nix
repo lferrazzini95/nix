@@ -13,7 +13,7 @@ in
     enable = true;
     plugins = with pkgs.vimPlugins; [
       {
-        plugin = null_ls_nvim;
+        plugin = null-ls-nvim;
         type = "lua";
         config = builtins.readFile ./plugins/null-ls.lua;
       }
