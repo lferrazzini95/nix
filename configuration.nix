@@ -15,15 +15,15 @@
 
   # Intel Graphics Driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # # Add kernel parameters to disable power management for iwlwifi and iwlmvm
-  # boot.kernelParams = [
-  #   "iwlwifi.bt_coex_active=0"
-  #   "iwlwifi.swcrypto=1"
-  #   "iwlwifi.power_save=0"
-  #   "iwlwifi.d0i3_disable=0"
-  #   "iwlwifi.uapsd_disable=0"
-  #   "iwlmvm.power_scheme=1"
-  # ];
+  # Add kernel parameters to disable power management for iwlwifi and iwlmvm
+  boot.kernelParams = [
+    "iwlwifi.bt_coex_active=0"
+    "iwlwifi.swcrypto=1"
+    "iwlwifi.power_save=0"
+    "iwlwifi.d0i3_disable=0"
+    "iwlwifi.uapsd_disable=0"
+    "iwlmvm.power_scheme=1"
+  ];
 
   systemd.targets.sleep.enable = true;
   systemd.targets.suspend.enable = true;
