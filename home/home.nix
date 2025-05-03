@@ -83,6 +83,7 @@ in
     bambu-studio
     jellyfin-media-player
     spotify
+    steam
   ];
 
   home.file = {
