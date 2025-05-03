@@ -14,7 +14,11 @@ local lsp_server_configs = {
 	},
 	nil_ls = {
 		settings = {
-			nix = {},
+			["nil"] = {
+				formatting = {
+					formatting = { "alejandra", "--quiet" },
+				},
+			},
 		},
 	},
 	lua_ls = {},

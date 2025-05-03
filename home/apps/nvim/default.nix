@@ -13,9 +13,9 @@ in
     enable = true;
     plugins = with pkgs.vimPlugins; [
       {
-        plugin = conform-nvim;
+        plugin = null-ls-nvim;
         type = "lua";
-        config = builtins.readFile ./plugins/conform.lua;
+        config = builtins.readFile ./plugins/null-ls.lua;
       }
       bufferline-nvim
       render-markdown-nvim
@@ -37,6 +37,7 @@ in
         config = builtins.readFile ./plugins/nvim-tree.lua;
       }
       nvim-treesitter.withAllGrammars
+      nvim-treesitter
       telescope-nvim
       vim-commentary
       {

@@ -119,7 +119,7 @@ vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on
 vim.api.nvim_set_keymap(
 	"n",
 	"<Leader>cf",
-	':lua require("conform").format()<CR>',
+	":lua vim.lsp.buf.format({ async = true })<CR>",
 	{ noremap = true, silent = true, desc = "[F]ormat" }
 )
 

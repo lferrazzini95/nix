@@ -54,6 +54,9 @@ in
     (import ./apps/alacritty/default.nix { inherit pkgs userTheme; })
     (import ./apps/tmux/default.nix { inherit pkgs userTheme; })
     (import ./apps/k9s/default.nix { inherit pkgs userTheme; })
+    (import ./apps/bash/default.nix { inherit pkgs userTheme; })
+    (import ./apps/gpg/default.nix { inherit pkgs; })
+    (import ./apps/starship/default.nix { inherit pkgs userTheme; })
   ];
   home.packages = with pkgs; [
     atool
@@ -61,10 +64,20 @@ in
 
     #administration
     kubectl
+    kubectx
 
     #programming
     go
     dart
+
+    #utils
+    jq
+    zip
+    fzf
+    openssl
+
+    #env
+    devbox
 
     #hobby
     bambu-studio
@@ -72,13 +85,18 @@ in
     spotify
   ];
 
+  home.file = {
+    ".local/bin/gpf" = {
+      source = ./scripts/gpf;
+      executable = true;
+    };
+  };
   services.syncthing = {
     enable = true;
   };
 
   programs = {
     home-manager.enable = true;
-    bash.enable = true;
     chromium = {
       enable = true;
       package = pkgs.brave;
