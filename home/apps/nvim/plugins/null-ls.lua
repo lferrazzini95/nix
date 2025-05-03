@@ -15,7 +15,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.trail_space,
 		--formatting
 		null_ls.builtins.formatting.gofumpt,
-		null_ls.builtins.formatting.goimport_reviser,
+		null_ls.builtins.formatting.goimports_reviser,
 
 		null_ls.builtins.formatting.just,
 
