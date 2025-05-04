@@ -69,7 +69,6 @@ in
     #programming
     go
     dart
-    docker
 
     #utils
     jq
