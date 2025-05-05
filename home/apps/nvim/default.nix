@@ -36,8 +36,12 @@ in
         type = "lua";
         config = builtins.readFile ./plugins/nvim-tree.lua;
       }
-      nvim-treesitter.withAllGrammars
-      nvim-treesitter
+      {
+       plugin = nvim-treesitter;
+       type = "lua";
+       config = builtins.readFile ./plugins/nvim-treesitter.lua;
+       }
+      rainbow-delimiters-nvim
       telescope-nvim
       vim-commentary
       {
@@ -59,14 +63,46 @@ in
     ];
     extraLuaConfig = builtins.readFile ./config/init.lua;
     extraPackages = with pkgs; [
-      pyright
+      deadnix
+      statix
+      alejandra
+
+      cbfmt
+
+      shfmt
+      shellharden
+
+      gofumpt
+      goimports-reviser
+      revive
+
       gopls
+      yaml-language-server
+      helm-ls
+      marksman
+      rust-analyzer
+      rustfmt
+      terraform-ls
       nil
-      nodePackages.prettier
-      black
-      nixfmt-rfc-style
+
+      universal-ctags
+
+      clippy
+
       stylua
-      lua-language-server
+
+      yamlfmt
+
+      libxml2
+
+      tfsec
+
+      fzf
+
+      html-tidy
+
+      tinymist
+      typstyle
     ];
   };
 }
