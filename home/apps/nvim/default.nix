@@ -61,7 +61,6 @@ in
     extraPackages = with pkgs; [
       pyright
       gopls
-      gofmt
       nil
       nodePackages.prettier
       black
