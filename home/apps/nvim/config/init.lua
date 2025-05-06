@@ -19,7 +19,7 @@ vim.diagnostic.config({
 		prefix = "",
 	},
 	signs = true,
-	underline = true,
+	underline = false,
 	update_in_insert = false, -- Don't update diagnostics while typing
 })
 
