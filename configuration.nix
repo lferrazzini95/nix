@@ -78,18 +78,19 @@
       };
     };
   };
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    xkbVariant = "intl";
+    variant = "intl";
+  };
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "intl";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
