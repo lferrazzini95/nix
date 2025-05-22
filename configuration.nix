@@ -83,7 +83,6 @@
   services.xserver = {
     enable = true;
     layout = "de";
-    xkbVariant = "intl";
   };
 
   # Enable the GNOME Desktop Environment.
