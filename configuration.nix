@@ -83,10 +83,12 @@
   # if default configured and blocked run
   # gsettings reset org.gnome.desktop.input-sources xkb-options
   # gsettings reset org.gnome.desktop.input-sources sources
-  services.xserver.xkb = {
+  services.xserver = {
     enable = true;
-    layout = "us";
-    variant = "intl";
+    xkb = {
+      layout = "us";
+      variant = "intl";
+    };
   };
 
   # Enable the GNOME Desktop Environment.
