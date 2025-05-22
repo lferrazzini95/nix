@@ -80,7 +80,10 @@
   };
 
   # Configure keymap in X11
-  services.xserver = {
+  # if default configured and blocked run
+  # gsettings reset org.gnome.desktop.input-sources xkb-options
+  # gsettings reset org.gnome.desktop.input-sources sources
+  services.xserver.xkb = {
     enable = true;
     layout = "us";
     xkbVariant = "intl";
