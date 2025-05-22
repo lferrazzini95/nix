@@ -82,9 +82,8 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    layout = "us";
+    layout = "de";
     xkbVariant = "intl";
-    variant = "intl";
   };
 
   # Enable the GNOME Desktop Environment.
