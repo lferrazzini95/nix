@@ -90,6 +90,8 @@ in
       clippy
 
       stylua
+      lua-language-server
+      selene
 
       yamlfmt
 
