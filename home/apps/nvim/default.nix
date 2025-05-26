@@ -91,6 +91,7 @@ in
 
       stylua
       lua-language-server
+      selene
 
       yamlfmt
 
