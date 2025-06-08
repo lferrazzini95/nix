@@ -99,11 +99,11 @@ in {
     chromium = {
       enable = true;
       package = pkgs.brave;
-      _1password.enable = true;
-      _1password-gui = {
-        enable = true;
-        polkitPolicyOwners = [username];
-      };
+    };
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [username];
     };
   };
 }
