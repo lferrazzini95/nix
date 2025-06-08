@@ -100,9 +100,5 @@ in {
       enable = true;
       package = pkgs.brave;
     };
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [username];
-    };
   };
 }
