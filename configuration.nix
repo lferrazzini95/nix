@@ -1,9 +1,11 @@
-{ pkgs, host, ... }:
 {
+  pkgs,
+  host,
+  ...
+}: {
   imports = [
     ./hosts/${host}/hardware-configuration.nix
   ];
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -26,13 +28,13 @@
   ];
 
   services.tlp = {
-  settings = {
-    CPU_BOOST_ON_AC = 1;
-    CPU_BOOST_ON_BAT = 0;
-    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    settings = {
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    };
   };
-};
 
   systemd.targets.sleep.enable = true;
   systemd.targets.suspend.enable = false;
@@ -82,8 +84,8 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "FiraCode Nerd Font Mono" ];
-        sansSerif = [ "FiraCode Nerd Font" ];
+        monospace = ["FiraCode Nerd Font Mono"];
+        sansSerif = ["FiraCode Nerd Font"];
       };
     };
   };
@@ -103,7 +105,6 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -161,7 +162,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
-    environment.variables.ANDROID_HOME = "${pkgs.android-studio}/libexec/android-sdk";
+  environment.variables.ANDROID_HOME = "${pkgs.android-studio}/libexec/android-sdk";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -189,5 +190,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }

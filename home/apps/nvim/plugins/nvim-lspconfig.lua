@@ -16,9 +16,7 @@ local lsp_server_configs = {
     settings = {
       ["nil"] = {
         formatting = {
-          formatting = {
             command = {"alejandra", "--quiet" },
-        },
       },
     },
   },
