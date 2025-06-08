@@ -38,6 +38,7 @@ local lsp_server_configs = {
     },
   },
 }
+}
 
 -- Loop through servers and set them up with shared capabilities
 for server, config in pairs(lsp_server_configs) do
