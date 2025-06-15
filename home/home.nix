@@ -62,6 +62,8 @@ in {
     #administration
     kubectl
     kubectx
+    _1password-gui
+    _1password
 
     #programming
     go
@@ -99,11 +101,6 @@ in {
     chromium = {
       enable = true;
       package = pkgs.brave;
-    };
-    _1password.enable = true;
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [username];
     };
   };
 }
