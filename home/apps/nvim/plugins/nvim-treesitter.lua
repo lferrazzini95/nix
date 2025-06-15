@@ -1,15 +1,6 @@
 require("nvim-treesitter.install").prefer_git = true
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "go",
-    "lua",
-    "python",
-    "bash",
-    "markdown",
-    "json",
-    -- Add any other languages you use here
-  },
   highlight = {
     enable = true,
   },
