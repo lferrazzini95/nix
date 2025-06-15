@@ -20,6 +20,7 @@ local lsp_server_configs = {
       },
     },
   },
+  },
   lua_ls = {},
   dartls = {},
   gopls = {
@@ -36,9 +37,11 @@ local lsp_server_configs = {
     },
   },
 }
-}
 
 -- Loop through servers and set them up with shared capabilities
 for server, config in pairs(lsp_server_configs) do
-  require("lspconfig")[server].setup({ capabilities = capabilities, config })
+  -- require("lspconfig")[server].setup({ capabilities = capabilities, config }) 
+
+  config.capabilities = capabilities
+  require("lspconfig")[server].setup(config)
 end
