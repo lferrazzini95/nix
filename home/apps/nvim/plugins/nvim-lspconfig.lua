@@ -20,6 +20,7 @@ local lsp_server_configs = {
       },
     },
   },
+  },
   lua_ls = {},
   dartls = {},
   gopls = {
@@ -35,7 +36,6 @@ local lsp_server_configs = {
       },
     },
   },
-}
 }
 
 -- Loop through servers and set them up with shared capabilities
