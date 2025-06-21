@@ -22,6 +22,11 @@ in
       nvim-dap
       lsp-zero-nvim
       {
+        plugin = kulala-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/kulala-nvim.lua;
+      }
+      {
         plugin = nvim-lspconfig;
         type = "lua";
         config = builtins.readFile ./plugins/nvim-lspconfig.lua;
