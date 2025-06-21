@@ -115,7 +115,13 @@ vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on
   signs = true,
   update_in_insert = true,
 })
-
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    -- The timeout is a safeguard against the LSP server hanging
+    vim.lsp.buf.format({ async = true, timeout_ms = 2000 })
+  end,
+})
 vim.api.nvim_set_keymap(
   "n",
   "<Leader>cf",
