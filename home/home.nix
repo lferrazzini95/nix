@@ -102,5 +102,8 @@ in {
       enable = true;
       package = pkgs.brave;
     };
+    zoxide = {
+      enable = true;
+    };
   };
 }
