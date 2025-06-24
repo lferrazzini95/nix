@@ -1,7 +1,9 @@
-{ pkgs, userTheme, ... }:
-let
-in
 {
+  pkgs,
+  userTheme,
+  ...
+}: let
+in {
   programs.bash = {
     enable = true;
     shellAliases = {
@@ -10,6 +12,7 @@ in
     initExtra = ''
       export PATH="$HOME/.local/bin:$PATH"
       export EDITOR=nvim
+      eval "$(zoxide init bash)"
     '';
   };
 }
