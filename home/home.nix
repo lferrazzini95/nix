@@ -68,6 +68,7 @@ in {
     #programming
     go
     dart
+    kubernetes-helm
 
     #utils
     jq
