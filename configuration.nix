@@ -51,7 +51,6 @@
   hardware.graphics.enable32Bit = true;
   hardware.ipu6.enable = false;
   hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
-  hardware.opengl.enable = true;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -128,6 +127,7 @@
       "wheel"
       "docker"
       "video"
+      "audio"
     ];
     packages = with pkgs; [
       #  thunderbird
