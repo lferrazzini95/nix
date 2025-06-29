@@ -51,6 +51,7 @@
   hardware.graphics.enable32Bit = true;
   hardware.ipu6.enable = false;
   hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
+  hardware.opengl.enable = true;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -103,9 +104,10 @@
       layout = "us";
       variant = "intl";
     };
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    videoDrivers = [ "intel" ];
   };
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
