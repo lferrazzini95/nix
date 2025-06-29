@@ -12,21 +12,23 @@
   ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   # Intel Graphics Driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Add kernel parameters to disable power management for iwlwifi and iwlmvm
-  boot.kernelParams = [
-    "iwlwifi.bt_coex_active=0"
-    "iwlwifi.swcrypto=1"
-    "iwlwifi.power_save=0"
-    "iwlwifi.d0i3_disable=0"
-    "iwlwifi.uapsd_disable=0"
-    "iwlmvm.power_scheme=1"
-  ];
+  # boot.kernelParams = [
+  #   "iwlwifi.bt_coex_active=0"
+  #   "iwlwifi.swcrypto=1"
+  #   "iwlwifi.power_save=0"
+  #   "iwlwifi.d0i3_disable=0"
+  #   "iwlwifi.uapsd_disable=0"
+  #   "iwlmvm.power_scheme=1"
+  # ];
 
   services.tlp = {
     settings = {
@@ -49,8 +51,8 @@
   # For gaming
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-  hardware.ipu6.enable = false;
-  hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
+  # hardware.ipu6.enable = false;
+  # hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -97,22 +99,33 @@
   # if default configured and blocked run
   # gsettings reset org.gnome.desktop.input-sources xkb-options
   # gsettings reset org.gnome.desktop.input-sources sources
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "intl";
+  services = {
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        variant = "intl";
+      };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      videoDrivers = ["intel"];
     };
+    pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    printing.enable = true;
   };
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  # # Enable sound with pipewire.
+  # services.pulseaudio.enable = false;
+  # security.rtkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -126,6 +139,7 @@
       "wheel"
       "docker"
       "video"
+      "audio"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -165,18 +179,7 @@
   # };
 
   # List services that you want to enable:
-  services = {
-    pipewire = {
-      enable = true;
-      wireplumber.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      jack.enable = true;
-    };
-  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
