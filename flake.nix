@@ -19,12 +19,8 @@
       config.allowUnfree = true;
     };
     system = "x86_64-linux";
-    userList = [
-      {
-        username = "luca";
-        userTheme = "everforest"; # everforest or nordic
-      }
-    ];
+    username = "luca";
+    userTheme = "everforest"; # everforest or nordic
     host = "laptop";
   in {
     nixosConfigurations = {
@@ -33,19 +29,11 @@
         modules = [
           home-manager.nixosModules.home-manager
           {
-            home-manager.users = pkgs.lib.listToAttrs (
-              map (user: {
-                name = user.username;
-                value = import ./home/home.nix {
-                  pkgs = pkgs;
-                  username = user.username;
-                  userTheme = user.userTheme;
-                };
-              })
-              userList
-            );
+            home-manager.users.${username} = import ./home/home.nix {
+              inherit pkgs username userTheme;
+            };
           }
-          (import ./configuration.nix {inherit pkgs host;})
+          (import ./configuration.nix {inherit pkgs host username;})
         ];
       };
     };

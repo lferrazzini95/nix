@@ -1,6 +1,7 @@
 {
   pkgs,
   host,
+  username,
   ...
 }: {
   imports = [
@@ -20,16 +21,6 @@
   # Intel Graphics Driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Add kernel parameters to disable power management for iwlwifi and iwlmvm
-  # boot.kernelParams = [
-  #   "iwlwifi.bt_coex_active=0"
-  #   "iwlwifi.swcrypto=1"
-  #   "iwlwifi.power_save=0"
-  #   "iwlwifi.d0i3_disable=0"
-  #   "iwlwifi.uapsd_disable=0"
-  #   "iwlmvm.power_scheme=1"
-  # ];
-
   services.tlp = {
     settings = {
       CPU_BOOST_ON_AC = 1;
@@ -39,20 +30,25 @@
     };
   };
 
-  systemd.targets.sleep.enable = true;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = true;
-  systemd.targets.hybrid-sleep.enable = false;
+  systemd.targets = {
+    sleep.enable = true;
+    suspend.enable = false;
+    hibernate.enable = true;
+    hybrid-sleep.enable = false;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   hardware.enableRedistributableFirmware = true;
+
   # For gaming
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
   # hardware.ipu6.enable = false;
   # hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -62,6 +58,7 @@
     enable = true;
     wifi.powersave = false;
   };
+
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
@@ -123,17 +120,10 @@
     printing.enable = true;
   };
 
-  # # Enable sound with pipewire.
-  # services.pulseaudio.enable = false;
-  # security.rtkit.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.luca = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "luca";
+    description = username;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -145,9 +135,7 @@
       #  thunderbird
     ];
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
+# Install firefox. programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -161,11 +149,7 @@
     xclip
     gnugrep
     ripgrep
-    android-studio
-
-    # docker
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    # android-studio
   ];
 
   environment.variables.ANDROID_HOME = "${pkgs.android-studio}/libexec/android-sdk";
