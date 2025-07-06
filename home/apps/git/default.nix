@@ -15,6 +15,25 @@ in
       };
       init.defaultBranch = "main";
       safe.directory = "/etc/nixos";
-    };
+    }; 
+    ignores = [
+      "tags"
+      "tags.temp"
+      "tags.lock"
+      ".mypy_cache/"
+      ".pytest_cache/"
+      "__pycache__/"
+      ".*.un~"
+      ".nvimlog"
+      ".tool-versions"
+      "/worktrees/"
+      ".envrc"
+      ".venv/"
+      "/shell.nix"
+      "/result"
+      ".direnv/"
+      ".ropeproject/"
+      "/.tup/"
+    ];
   };
 }
