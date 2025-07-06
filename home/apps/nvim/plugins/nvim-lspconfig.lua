@@ -16,19 +16,25 @@ local lsp_server_configs = {
     settings = {
       ["nil"] = {
         formatting = {
-            command = {"alejandra", "--quiet" },
+          command = { "alejandra", "--quiet" },
+        },
       },
     },
-  },
   },
   lua_ls = {
     settings = {
       Lua = {
+        -- Make the server aware of Neovim runtime files
+        workspace = {
+          checkThirdParty = false,
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- ✅ Tell the server about the 'vim' global
         diagnostics = {
-          globals = { 'vim' }
-        }
-      }
-    }
+          globals = { "vim" },
+        },
+      },
+    },
   },
   dartls = {},
   gopls = {
@@ -48,7 +54,7 @@ local lsp_server_configs = {
 
 -- Loop through servers and set them up with shared capabilities
 for server, config in pairs(lsp_server_configs) do
-  -- require("lspconfig")[server].setup({ capabilities = capabilities, config }) 
+  -- require("lspconfig")[server].setup({ capabilities = capabilities, config })
 
   config.capabilities = capabilities
   require("lspconfig")[server].setup(config)
