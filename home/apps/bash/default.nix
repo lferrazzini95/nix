@@ -13,6 +13,7 @@ in {
       export PATH="$HOME/.local/bin:$PATH"
       export EDITOR=nvim
       eval "$(zoxide init bash)"
+      eval "$(direnv hook bash)"
     '';
   };
 }
