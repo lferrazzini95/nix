@@ -21,7 +21,15 @@ local lsp_server_configs = {
     },
   },
   },
-  lua_ls = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        }
+      }
+    }
+  },
   dartls = {},
   gopls = {
     settings = {
