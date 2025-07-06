@@ -28,6 +28,7 @@ in
       ".tool-versions"
       "/worktrees/"
       ".envrc"
+      ".env"
       ".venv/"
       "/shell.nix"
       "/result"
