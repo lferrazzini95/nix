@@ -78,7 +78,6 @@ in {
 
     #env
     devbox
-    direnv
 
     #hobby
     bambu-studio
@@ -106,6 +105,10 @@ in {
     };
     zoxide = {
       enable = true;
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 }
