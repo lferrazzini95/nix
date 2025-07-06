@@ -53,6 +53,6 @@ require("nvim-tree").setup({
 		highlight_opened_files = "all",
 	},
 	filters = {
-		custom = { "^.git$" },
+    dotfiles = false,
 	},
 })
