@@ -78,6 +78,7 @@ in {
 
     #env
     devbox
+    direnv
 
     #hobby
     bambu-studio
