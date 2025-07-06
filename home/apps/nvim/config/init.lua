@@ -1,6 +1,3 @@
-
-require("keymaps")
-
 vim.g.mapleader = " " -- Sets <Space> as the leader key
 
 ---------------------------
