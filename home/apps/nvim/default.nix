@@ -13,6 +13,11 @@ in
     enable = true;
     plugins = with pkgs.vimPlugins; [
       {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/indent-blankline-nvim.lua;
+      }
+      {
         plugin = null-ls-nvim;
         type = "lua";
         config = builtins.readFile ./plugins/null-ls.lua;
