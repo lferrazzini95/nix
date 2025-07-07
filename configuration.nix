@@ -13,13 +13,13 @@
   ];
 
   # Bootloader
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
-
-  # Intel Graphics Driver
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.tlp = {
     settings = {
@@ -38,20 +38,14 @@
   };
 
   networking.hostName = "nixos"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  hardware.enableRedistributableFirmware = true;
-
-  # For gaming
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
-
-  # hardware.ipu6.enable = false;
-  # hardware.ipu6.platform = "ipu6ep"; #"ipu6epmtl";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  hardware = {
+    enableRedistributableFirmware = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+  };
 
   # Enable networking
   networking.networkmanager = {
@@ -63,18 +57,19 @@
   time.timeZone = "Europe/Rome";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
   };
 
   fonts = {
@@ -92,10 +87,6 @@
     };
   };
 
-  # Configure keymap in X11
-  # if default configured and blocked run
-  # gsettings reset org.gnome.desktop.input-sources xkb-options
-  # gsettings reset org.gnome.desktop.input-sources sources
   services = {
     xserver = {
       enable = true;
@@ -135,7 +126,7 @@
       #  thunderbird
     ];
   };
-# Install firefox. programs.firefox.enable = true;
+  # Install firefox. programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
