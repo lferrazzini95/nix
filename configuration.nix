@@ -21,13 +21,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  systemd.targets = {
-    sleep.enable = true;
-    suspend.enable = false;
-    hibernate.enable = true;
-    hybrid-sleep.enable = false;
-  };
-
   networking.hostName = "nixos"; # Define your hostname.
 
   hardware = {
