@@ -72,6 +72,7 @@
   };
 
   services = {
+    displayManager.defaultSession = "hyprland";
     xserver = {
       enable = true;
       xkb = {
@@ -79,7 +80,7 @@
         variant = "intl";
       };
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      # desktopManager.gnome.enable = true;
       videoDrivers = ["intel"];
     };
     pipewire = {
@@ -107,7 +108,12 @@
     };
     power-profiles-daemon.enable = false;
   };
-
+  programs = {
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
