@@ -21,15 +21,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.tlp = {
-    settings = {
-      CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 0;
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-    };
-  };
-
   systemd.targets = {
     sleep.enable = true;
     suspend.enable = false;
@@ -109,6 +100,19 @@
       jack.enable = true;
     };
     printing.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        # You can also set energy performance policies
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      };
+    };
+    power-profiles-daemon.enable = false;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
