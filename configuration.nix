@@ -21,30 +21,17 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  systemd.targets = {
-    hybernate.enable = false;
-  };
-
-  networking.hostName = "nixos"; # Define your hostname.
-
-  hardware = {
-    enableRedistributableFirmware = true;
-    graphics = {
+  # Networking
+  networking = {
+    hostName = "nixos";
+    networkmanager = {
       enable = true;
-      enable32Bit = true;
+      wifi.powersave = false;
     };
   };
 
-  # Enable networking
-  networking.networkmanager = {
-    enable = true;
-    wifi.powersave = false;
-  };
-
-  # Set your time zone.
+  # Time & Localization
   time.timeZone = "Europe/Rome";
-
-  # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -60,21 +47,16 @@
     };
   };
 
-  fonts = {
-    enableDefaultPackages = true;
-    packages = with pkgs; [
-      nerd-fonts.fira-code
-      nerd-fonts.sauce-code-pro
-    ];
-
-    fontconfig = {
-      defaultFonts = {
-        monospace = ["FiraCode Nerd Font Mono"];
-        sansSerif = ["FiraCode Nerd Font"];
-      };
+  # Hardware
+  hardware = {
+    enableRedistributableFirmware = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
     };
   };
 
+  # Services
   services = {
     # displayManager.defaultSession = "hyprland";
     xserver = {
@@ -112,13 +94,8 @@
     };
     power-profiles-daemon.enable = false;
   };
-  # programs = {
-  #   hyprland = {
-  #     enable = true;
-  #     xwayland.enable = true;
-  #   };
-  # };
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+
+  # Users
   users.users.${username} = {
     isNormalUser = true;
     description = username;
@@ -133,49 +110,44 @@
       #  thunderbird
     ];
   };
-  # Install firefox. programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Fonts
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      nerd-fonts.fira-code
+      nerd-fonts.sauce-code-pro
+    ];
 
-  # Enable docker virtualisation
-  virtualisation.docker.enable = true;
+    fontconfig = {
+      defaultFonts = {
+        monospace = ["FiraCode Nerd Font Mono"];
+        sansSerif = ["FiraCode Nerd Font"];
+      };
+    };
+  };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Packages & Environment
   environment.systemPackages = with pkgs; [
     xclip
     gnugrep
     ripgrep
     # android-studio
   ];
-
-  environment.variables.ANDROID_HOME = "${pkgs.android-studio}/libexec/android-sdk";
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
+  # programs = {
+  #   hyprland = {
+  #     enable = true;
+  #     xwayland.enable = true;
+  #   };
   # };
 
-  # List services that you want to enable:
+  # Virtualization
+  virtualisation.docker.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # System & Nix Settings
+  systemd.targets = {
+    hybernate.enable = false;
+  };
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11"; # Did you read the comment?
 }
