@@ -21,6 +21,10 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
+  systemd.targets = {
+    hybernate.enable = false;
+  }
+
   networking.hostName = "nixos"; # Define your hostname.
 
   hardware = {
