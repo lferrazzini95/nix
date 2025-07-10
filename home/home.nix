@@ -19,28 +19,28 @@ in {
       name = userTheme;
     };
   };
-  # dconf = {
-  #   enable = true;
-  #   settings = {
-  #     "org/gnome/desktop/background" = {
-  #       "picture-uri" = "/home/${username}/.background-image";
-  #       "picture-uri-dark" = "/home/${username}/.background-image";
-  #     };
-  #     "org/gnome/desktop/screensaver" = {
-  #       "picture-uri" = "/home/${username}/.background-image";
-  #       "picture-uri-dark" = "/home/${username}/.background-image";
-  #     };
-  #     "org/gnome/desktop/interface" = {
-  #       "color-scheme" = "prefer-dark";
-  #     };
-  #     "org/gnome/shell" = {
-  #       favorite-apps = [
-  #         "brave-browser.desktop"
-  #         "Alacritty.desktop"
-  #       ];
-  #     };
-  #   };
-  # };
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/background" = {
+        "picture-uri" = "/home/${username}/.background-image";
+        "picture-uri-dark" = "/home/${username}/.background-image";
+      };
+      "org/gnome/desktop/screensaver" = {
+        "picture-uri" = "/home/${username}/.background-image";
+        "picture-uri-dark" = "/home/${username}/.background-image";
+      };
+      "org/gnome/desktop/interface" = {
+        "color-scheme" = "prefer-dark";
+      };
+      "org/gnome/shell" = {
+        favorite-apps = [
+          "brave-browser.desktop"
+          "Alacritty.desktop"
+        ];
+      };
+    };
+  };
   home.file.".background-image".source = ./ui/${userTheme}.jpg;
 
   home.stateVersion = "24.05";
@@ -54,7 +54,7 @@ in {
     (import ./apps/bash/default.nix {inherit pkgs userTheme;})
     (import ./apps/gpg/default.nix {inherit pkgs;})
     (import ./apps/starship/default.nix {inherit pkgs userTheme;})
-    (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
+    # (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
   ];
   home.packages = with pkgs; [
     atool
