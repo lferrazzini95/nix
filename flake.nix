@@ -14,11 +14,12 @@
     home-manager,
     ...
   } @ inputs: let
+    system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
-    system = "x86_64-linux";
+
     username = "luca";
     userTheme = "everforest"; # everforest or nordic
     host = "laptop";
