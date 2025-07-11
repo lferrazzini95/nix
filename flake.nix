@@ -20,8 +20,8 @@
       config.allowUnfree = true;
     };
 
-    username = "lferrazzini";
-    userTheme = "everforest"; # everforest or nordic
+    username = "luca";
+    userTheme = "nordic"; # everforest or nordic
     email = "luca733@gmail.com";
     host = "laptop";
   in {
