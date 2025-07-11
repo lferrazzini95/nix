@@ -20,8 +20,9 @@
       config.allowUnfree = true;
     };
 
-    username = "luca";
+    username = "lferrazzini";
     userTheme = "everforest"; # everforest or nordic
+    email = "luca733@gmail.com";
     host = "laptop";
   in {
     nixosConfigurations = {
@@ -31,7 +32,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.users.${username} = import ./home/home.nix {
-              inherit pkgs username userTheme;
+              inherit pkgs username userTheme email;
             };
           }
           (import ./configuration.nix {inherit pkgs host username;})

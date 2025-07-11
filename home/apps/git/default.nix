@@ -1,11 +1,11 @@
-{ pkgs, userTheme, ... }:
+{ pkgs, username, email, userTheme, ... }:
 let
 in
 {
   programs.git = {
     enable = true;
-    userName = "ferrazzo";
-    userEmail = "luca733@gmail.com";
+    userName = username;
+    userEmail = email;
     extraConfig = {
       core = {
         editor = "nvim";

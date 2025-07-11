@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  email,
   userTheme,
   ...
 }: let
@@ -47,7 +48,7 @@ in {
   #Manage applications
   imports = [
     (import ./apps/nvim/default.nix {inherit pkgs userTheme;})
-    (import ./apps/git/default.nix {inherit pkgs userTheme;})
+    (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
     (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
     (import ./apps/tmux/default.nix {inherit pkgs userTheme;})
     (import ./apps/k9s/default.nix {inherit pkgs userTheme;})

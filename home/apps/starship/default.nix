@@ -3,15 +3,13 @@
   userTheme,
   ...
 }: let
-  themeAttrs =
+  theme =
     if userTheme == "nordic"
     then {
-      # This entire set is returned if true
       mainColor = "#88C0D0";
       accentColor = "#2E3440";
     }
     else{
-      # This entire set is returned if this is true
       mainColor = "#A7C080";
       accentColor = "#2F383E";
     };
@@ -36,8 +34,8 @@ in {
       kubernetes = {
         disabled = false;
         format = "╱ [$context $symbol $namespace]($style)";
-        style = "#A7C080";
-        symbol = "K";
+        style = theme.mainColor;
+        symbol = "󱃾";
       };
     };
   };
