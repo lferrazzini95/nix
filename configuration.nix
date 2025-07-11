@@ -140,6 +140,7 @@
     xclip
     gnugrep
     ripgrep
+    unzip
     # android-studio
   ];
   # programs = {
