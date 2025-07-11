@@ -19,6 +19,14 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "iwlwifi.bt_coex_active=0"
+      "iwlwifi.swcrypto=1"
+      "iwlwifi.power_save=0"
+      "iwlwifi.d0i3_disable=0"
+      "iwlwifi.uapsd_disable=0"
+      "iwlmvm.power_scheme=1"
+    ];
   };
 
   # Networking
@@ -146,7 +154,7 @@
 
   # System & Nix Settings
   systemd.targets = {
-    hybernate.enable = false;
+    # hybernate.enable = false;
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11"; # Did you read the comment?
