@@ -21,7 +21,7 @@
     };
 
     username = "luca";
-    userTheme = "nordic"; # everforest or nordic
+    userTheme = "everforest"; # everforest or nordic
     email = "luca733@gmail.com";
     host = "laptop";
   in {
