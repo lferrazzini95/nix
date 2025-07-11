@@ -18,6 +18,11 @@ in
         config = builtins.readFile ./plugins/indent-blankline-nvim.lua;
       }
       {
+        plugin = gitsigns-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/gitsigns-nvim.lua;
+      }
+      {
         plugin = null-ls-nvim;
         type = "lua";
         config = builtins.readFile ./plugins/null-ls.lua;

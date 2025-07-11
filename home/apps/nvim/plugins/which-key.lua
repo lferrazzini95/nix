@@ -8,6 +8,6 @@ require("which-key").setup({
 		{ "<leader>w", group = "[W]orkspace", mode = { "n", "v" } },
 		{ "<leader>t", group = "[T]oggle", mode = { "n", "v" } },
 		{ "<leader>u", group = "[U]tilities", mode = { "n", "v" } },
-		--{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+		{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
 	},
 })

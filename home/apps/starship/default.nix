@@ -14,7 +14,7 @@
       # This entire set is returned if this is true
       mainColor = "#A7C080";
       accentColor = "#2F383E";
-    }
+    };
 in {
   programs.starship = {
     enable = true;
@@ -32,6 +32,12 @@ in {
       golang = {
         symbol = " ";
         format = "╱ [$symbol$version ]($style)";
+      };
+      kubernetes = {
+        disabled = false;
+        format = "╱ [$context $symbol $namespace]($style)";
+        style = "#A7C080";
+        symbol = "K";
       };
     };
   };
