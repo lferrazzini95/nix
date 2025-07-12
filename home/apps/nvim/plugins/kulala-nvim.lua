@@ -11,10 +11,15 @@ map("n", "<leader>Rs", function() require("kulala").run() end, { desc = "[R]eque
 map("n", "<leader>Ra", function() require("kulala").run_all() end, { desc = "[R]equest send [a]ll" })
 map("n", "<leader>Rb", function() require("kulala").scratchpad() end, { desc = "[R]equest scratch [b]lock" })
 
--- As for lazy-loading by filetype, you would wrap the above code in an autocmd:
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "http", "rest" },
---   callback = function()
---     -- Put the require('kulala').setup() and vim.keymap.set calls here
---   end,
--- })
+map("n", "<leader>Rd", function()
+  local logger = require("kulala.logger")
+
+  if logger.level == "debug" then
+    logger.level = "warn"
+    vim.notify("[Kulala] Debug mode OFF", vim.log.levels.WARN)
+  else
+    logger.level = "debug"
+    logger.log_file = vim.fn.stdpath("cache") .. "/kulala.log"
+    vim.notify("[Kulala] Debug mode ON (logging to kulala.log)", vim.log.levels.INFO)
+  end
+end, { desc = "[D]ebug toggle"})
