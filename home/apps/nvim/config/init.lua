@@ -70,6 +70,9 @@ vim.keymap.set("n", "<leader>tl", function()
   vim.wo.number = not vim.wo.number
 end, { noremap = true, silent = true, desc = "[L]inenumbers" })
 
+vim.keymap.set('n', '<leader>tr', function()
+  vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = "[R]elative Linenumbers" })
 -------------------------------------
 -- Configure search/find utilities --
 -------------------------------------
