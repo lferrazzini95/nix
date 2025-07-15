@@ -11,7 +11,6 @@
     "nix-command"
     "flakes"
   ];
-
   # Bootloader
   boot = {
     loader = {
@@ -143,7 +142,13 @@
     unzip
     # android-studio
   ];
-  # programs = {
+  programs = {
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [username];
+    };
+    _1password.enable = true;
+  };
   #   hyprland = {
   #     enable = true;
   #     xwayland.enable = true;
@@ -155,7 +160,9 @@
 
   # System & Nix Settings
   systemd.targets = {
-    hybernate.enable = false;
+    suspend.enable = false;
+    hybernate.enable = true;
+    hybrid-sleep.enable = false;
   };
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11"; # Did you read the comment?

@@ -64,8 +64,6 @@ in {
     #administration
     kubectl
     kubectx
-    _1password-gui
-    _1password-cli
 
     #programming
     go
@@ -90,8 +88,8 @@ in {
   ];
 
   home.file = {
-    ".local/bin/gpf" = {
-      source = ./scripts/gpf;
+    ".local/bin/opf" = {
+      source = ./scripts/opf;
       executable = true;
     };
   };
