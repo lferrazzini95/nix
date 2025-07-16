@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+note=$(ls ~/brain-dump/)
+
+if [[ -n "$note" ]]; then
+  nvim $note
+fi

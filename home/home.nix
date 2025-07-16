@@ -42,7 +42,6 @@ in {
       };
     };
   };
-  home.file.".background-image".source = ./ui/${userTheme}.jpg;
 
   home.stateVersion = "24.05";
   #Manage applications
@@ -57,6 +56,23 @@ in {
     (import ./apps/starship/default.nix {inherit pkgs userTheme;})
     # (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
   ];
+
+  home.file = {
+    ".background-image".source = ./ui/${userTheme}.jpg;
+    ".local/bin/opf" = {
+      source = ./scripts/opf;
+      executable = true;
+    };
+    ".local/bin/hf" = {
+      source = ./scripts/hf;
+      executable = true;
+    };
+    ".local/bin/tn" = {
+      source = ./scripts/tn;
+      executable = true;
+    };
+  };
+
   home.packages = with pkgs; [
     atool
     httpie
@@ -87,16 +103,6 @@ in {
     ardour
   ];
 
-  home.file = {
-    ".local/bin/opf" = {
-      source = ./scripts/opf;
-      executable = true;
-    };
-    ".local/bin/hf" = {
-      source = ./scripts/hf;
-      executable = true;
-    };
-  };
   services.syncthing = {
     enable = true;
   };
