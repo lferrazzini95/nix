@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+command=$(tac ~/.bash_history | sed -E 's/^\s*[0-9]+\s+//' | fzf)
+if [[ -n "$command" ]]; then
+  echo -n "$command" | xclip -selection clipboard
+fi

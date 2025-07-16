@@ -92,6 +92,10 @@ in {
       source = ./scripts/opf;
       executable = true;
     };
+    ".local/bin/hf" = {
+      source = ./scripts/hf;
+      executable = true;
+    };
   };
   services.syncthing = {
     enable = true;
