@@ -72,8 +72,9 @@
         layout = "us";
         variant = "intl";
       };
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      displayManager.sddm.enable = true;
+      # displayManager.gdm.enable = true;
+      # desktopManager.gnome.enable = true;
       videoDrivers = ["intel"];
     };
     pipewire = {
@@ -140,6 +141,7 @@
     gnugrep
     ripgrep
     unzip
+    wireguard-tools
     # android-studio
   ];
   programs = {
@@ -148,12 +150,12 @@
       polkitPolicyOwners = [username];
     };
     _1password.enable = true;
-  };
-  #   hyprland = {
-  #     enable = true;
-  #     xwayland.enable = true;
-  #   };
   # };
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+  };
 
   # Virtualization
   virtualisation.docker.enable = true;

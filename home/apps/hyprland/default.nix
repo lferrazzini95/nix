@@ -11,6 +11,7 @@
 
   wayland.windowManager = {
     hyprland = {
+      package = pkgs.hyprland;
       enable = true;
       settings = {
         "$mainMod" = "SUPER";
@@ -26,7 +27,7 @@
         ];
 
         env = [
-          ''GTK_THEME,Materia-dark''
+          # ''GTK_THEME,Materia-dark''
           ''XDG_SESSION_TYPE,wayland''
         ];
 
