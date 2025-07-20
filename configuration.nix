@@ -65,15 +65,15 @@
 
   # Services
   services = {
-    # displayManager.defaultSession = "hyprland";
+    displayManager.defaultSession = "hyprland";
+    # displayManager.sddm.enable = true;
     xserver = {
       enable = true;
       xkb = {
         layout = "us";
         variant = "intl";
       };
-      displayManager.sddm.enable = true;
-      # displayManager.gdm.enable = true;
+      displayManager.gdm.enable = true;
       # desktopManager.gnome.enable = true;
       videoDrivers = ["intel"];
     };
@@ -142,6 +142,7 @@
     ripgrep
     unzip
     wireguard-tools
+    brightnessctl
     # android-studio
   ];
   programs = {
@@ -152,9 +153,7 @@
     _1password.enable = true;
   # };
     hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
+      enable = true; xwayland.enable = true; };
   };
 
   # Virtualization

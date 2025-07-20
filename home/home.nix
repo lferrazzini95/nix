@@ -7,40 +7,46 @@
 }: let
   themePackage =
     if userTheme == "nordic"
-    then pkgs.nordic
+    then {
+      package = pkgs.nordic;
+      name = "";
+    }
     else if userTheme == "everforest"
-    then pkgs.everforest-gtk-theme
+    then {
+      package = pkgs.everforest-gtk-theme;
+      name = "Everforest-Dark-BL";
+    }
     else pkgs.defaultTheme;
 in {
   #Manage Appearance
   gtk = {
     enable = true;
     theme = {
-      package = themePackage;
-      name = userTheme;
+      package = themePackage.package;
+      name = themePackage.name;
     };
   };
   # dconf = {
   #   enable = true;
   #   settings = {
-  #     "org/gnome/desktop/background" = {
-  #       "picture-uri" = "/home/${username}/.background-image";
-  #       "picture-uri-dark" = "/home/${username}/.background-image";
-  #     };
-  #     "org/gnome/desktop/screensaver" = {
-  #       "picture-uri" = "/home/${username}/.background-image";
-  #       "picture-uri-dark" = "/home/${username}/.background-image";
-  #     };
-  #     "org/gnome/desktop/interface" = {
-  #       "color-scheme" = "prefer-dark";
-  #     };
-  #     "org/gnome/shell" = {
-  #       favorite-apps = [
-  #         "brave-browser.desktop"
-  #         "Alacritty.desktop"
-  #       ];
-  #     };
-  #   };
+  # "org/gnome/desktop/background" = {
+  #   "picture-uri" = "/home/${username}/.background-image";
+  # "picture-uri-dark" = "/home/${username}/.background-image";
+  # };
+  # "org/gnome/desktop/screensaver" = {
+  #   "picture-uri" = "/home/${username}/.background-image";
+  #   "picture-uri-dark" = "/home/${username}/.background-image";
+  # };
+  # "org/gnome/desktop/interface" = {
+  #   "color-scheme" = "prefer-dark";
+  # };
+  # "org/gnome/shell" = {
+  #   favorite-apps = [
+  #     "brave-browser.desktop"
+  #     "Alacritty.desktop"
+  #   ];
+  # };
+  # };
   # };
 
   home.stateVersion = "24.05";
@@ -76,6 +82,7 @@ in {
   home.packages = with pkgs; [
     atool
     httpie
+    brave
 
     #administration
     kubectl
@@ -103,16 +110,53 @@ in {
     ardour
   ];
 
-  services.syncthing = {
-    enable = true;
-  };
+  services = {
+    dunst = {
+      enable = true;
+      iconTheme = {
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus-Dark";
+        size = "64x64";
+      };
+      settings = {
+        global = {
+          follow = "mouse";
+        };
 
+        fullscreen = {
+          fullscreen = "show";
+        };
+
+        urgency_low = {
+          frame_color = "#1D918B";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 2;
+        };
+
+        urgency_normal = {
+          frame_color = "#D16BB7";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 5;
+        };
+
+        urgency_critical = {
+          frame_color = "#FC2929";
+          foreground = "#FFFF00";
+          background = "#18191E";
+          timeout = 0;
+        };
+
+        alert = {
+          summary = "*";
+          script = "/home/${username}/.local/bin/play-notification.sh";
+        };
+      };
+    };
+  };
   programs = {
     home-manager.enable = true;
-    chromium = {
-      enable = true;
-      package = pkgs.brave;
-    };
     zoxide = {
       enable = true;
     };

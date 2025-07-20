@@ -34,6 +34,7 @@
             home-manager.users.${username} = import ./home/home.nix {
               inherit pkgs username userTheme email;
             };
+            home-manager.backupFileExtension = "backup";
           }
           (import ./configuration.nix {inherit pkgs host username;})
         ];

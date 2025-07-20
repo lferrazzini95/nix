@@ -1,0 +1,103 @@
+* {
+  font-size: 13px;
+  font-family: FiraCode Nerd Font Mono, DemiBold;
+  border: none;
+}
+
+window#waybar {
+  border-bottom: 0px;
+  color: #d3c6aa;
+  background-color: #272e33;
+}
+
+#workspaces {
+  color: #d3c6aa;
+  background-color: #272e33;
+}
+
+#workspaces button {
+  padding: 0 0.2em;
+}
+
+#workspaces button:hover {
+  color: #e69875;
+}
+
+#workspaces button.active {
+  color: #d699b6;
+}
+
+#workspaces button.empty {
+  color: #7a8478;
+}
+
+#workspaces button.persistent:not(.active):not(.urgent) {
+  color: #7a8478;
+}
+
+#workspaces button.urgent {
+  color: #e67e80;
+}
+
+#battery.charging {
+  color: #a7c080;
+}
+
+#battery.plugged {
+  color: #d699b6;
+}
+
+@keyframes blink {
+  to {
+    color: #272e33;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #e67e80;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#pulseaudio.muted {
+  color: #859289;
+}
+
+#pulseaudio.source-muted {
+  color: #e67e80;
+}
+
+#idle_inhibitor.activated {
+  color: #e67e80;
+}
+
+#workspaces,
+#backlight,
+#idle_inhibitor,
+#cpu,
+#memory,
+#disk,
+#network,
+#custom-vpn,
+#battery {
+  padding-right: 10px;
+  padding-left: 8px;
+  border-right: 2px solid #7a8478;
+}
+
+#cpu.critical {
+  color: #e67e80;
+}
+
+#memory.critical {
+  color: #e67e80;
+}
+
+#clock,
+#pulseaudio {
+  padding-right: 8px;
+  padding-left: 8px;
+}
