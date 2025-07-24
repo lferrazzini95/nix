@@ -3,8 +3,19 @@
   username,
   userTheme,
   ...
-}: {
-
+}: let
+  vpnToggleScript = pkgs.writeShellScriptBin "vpn-toggle" ''
+    #!/bin/sh
+    # Check if the wg0 interface exists and is "up"
+    if ip link show wg0 up > /dev/null; then
+      # If it's up, bring it down
+      gksudo ${pkgs.wireguard-tools}/bin/wg-quick down wg0
+    else
+      # If it's down, bring it up
+      gksudo ${pkgs.wireguard-tools}/bin/wg-quick up wg0
+    fi
+  '';
+in {
   imports = [
     (import ./waybar/default.nix {inherit pkgs userTheme;})
   ];
@@ -13,11 +24,27 @@
     rofi-wayland
   ];
 
+  home.file = {
+    ".local/bin/rofi-wifi-menu" = {
+      source = ./scripts/rofi-wifi-menu;
+      executable = true;
+    };
+    ".local/bin/rofi-bluetooth" = {
+      source = ./scripts/rofi-bluetooth;
+      executable = true;
+    };
+  };
+
   wayland.windowManager = {
     hyprland = {
       package = pkgs.hyprland;
       enable = true;
       settings = {
+        monitor = [
+          # ''eDP-1, 2880x1800@60, 0x0,2''
+          ",highres,auto,2"
+        ];
+
         "$mainMod" = "SUPER";
         "$term" = "alacritty";
         "$general" = "SUPER";
@@ -33,6 +60,9 @@
 
         env = [
           # ''GTK_THEME,Materia-dark''
+          ''GDK_SCALE=2''
+          ''QT_SCALE_FACTOR=2'' # For all Qt apps
+          # ''GDK_DPI_SCALE=0.1''
           ''XDG_SESSION_TYPE,wayland''
         ];
 
@@ -49,7 +79,7 @@
             enabled = false;
           };
           dim_inactive = true;
-          dim_strength = 0;#0.3;
+          dim_strength = 0; #0.3;
           blur = {
             enabled = false;
           };
@@ -60,7 +90,7 @@
           kb_variant = "alt-intl";
           follow_mouse = 0;
           touchpad = {
-            disable_while_typing = true;
+            disable_while_typing = false;
             natural_scroll = true;
           };
         };
@@ -73,8 +103,10 @@
 
         bind = [
           # SUPER + ENTER  ->  Open Kitty terminal
-          "$mainMod, RETURN, exec, alacritty -e tmux new-window"
+          "$mainMod, RETURN, exec, alacritty"
           "$mainMod, L, exec, systemctl suspend"
+
+          "$mainMod, V, exec, ${vpnToggleScript}/bin/vpn-toggle"
 
           # ALT + Direction move focus
           ''$wm, L, movefocus, r''
@@ -87,7 +119,10 @@
           "$mainMod, F, fullscreen"
 
           # SUPER + D      ->  Open Rofi application launcher
-          "$mainMod, D, exec, rofi -show drun"
+          "$mainMod, D, exec, rofi -show drun -show-icons"
+          "$mainMod, B, exec, rofi-bluetooth"
+          "$mainMod, W, exec, rofi-wifi-menu"
+
           # Workspaces
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
@@ -112,7 +147,14 @@
       };
 
       systemd.enable = true;
-      xwayland.enable = true;
+      xwayland = {
+        enable = true;
+      };
+      # extraConfig = ''
+      #   xwayland {
+      #     force_zero_scaling = true
+      #   }
+      # '';
       # --- Autostart ---
 
       # --- Basic Settings ---

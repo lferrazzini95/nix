@@ -35,7 +35,36 @@
       enable = true;
       wifi.powersave = false;
     };
+    wireguard.interfaces = {
+      wg0 = {
+        ips = ["10.0.0.4/32"];
+        listenPort = 51280;
+        privateKeyFile = "/etc/wireguard/private.key";
+        peers = [
+          {
+            publicKey = builtins.readFile /etc/wireguard/serverPublic.key;
+            # Only specific traffic should be routed
+            allowedIPs = ["10.43.0.10/32" "192.168.1.225/32"];
+            endpoint = builtins.readFile /etc/wireguard/serverEndpoint.txt;
+            persistentKeepalive = 25;
+          }
+        ];
+      };
+    };
   };
+
+  # For now this is required to run vpn status (allows specific commands without sudo)
+  security.sudo.extraRules = [
+    {
+      users = [username];
+      commands = [
+        {
+          command = "${pkgs.wireguard-tools}/bin/wg show";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   # Time & Localization
   time.timeZone = "Europe/Rome";
@@ -61,20 +90,17 @@
       enable = true;
       enable32Bit = true;
     };
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+      settings = {General = {Enable = "Source,Sink,Media,Socket";};};
+    };
   };
 
   # Services
   services = {
-    displayManager.defaultSession = "hyprland";
-    # displayManager.sddm.enable = true;
     xserver = {
-      enable = true;
-      xkb = {
-        layout = "us";
-        variant = "intl";
-      };
       displayManager.gdm.enable = true;
-      # desktopManager.gnome.enable = true;
       videoDrivers = ["intel"];
     };
     pipewire = {
@@ -91,11 +117,12 @@
     tlp = {
       enable = true;
       settings = {
+        CPU_SCALING_DRIVER_ON_AC = "intel_pstate";
+        CPU_SCALING_DRIVER_ON_BAT = "intel_pstate";
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        # You can also set energy performance policies
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
       };
@@ -103,7 +130,6 @@
     power-profiles-daemon.enable = false;
   };
 
-  # Users
   users.users.${username} = {
     isNormalUser = true;
     description = username;
@@ -115,7 +141,6 @@
       "audio"
     ];
     packages = with pkgs; [
-      #  thunderbird
     ];
   };
 
@@ -136,24 +161,36 @@
   };
 
   # Packages & Environment
-  environment.systemPackages = with pkgs; [
-    xclip
-    gnugrep
-    ripgrep
-    unzip
-    wireguard-tools
-    brightnessctl
-    # android-studio
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      xclip
+      gnugrep
+      ripgrep
+      unzip
+      wireguard-tools
+      brightnessctl
+      rofi
+      rofi-bluetooth
+      # android-studio
+    ];
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+  };
+
   programs = {
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = [username];
     };
     _1password.enable = true;
-  # };
+    # };
     hyprland = {
-      enable = true; xwayland.enable = true; };
+      enable = true;
+      xwayland = {
+        enable = true;
+      };
+    };
   };
 
   # Virtualization
@@ -161,10 +198,11 @@
 
   # System & Nix Settings
   systemd.targets = {
-    suspend.enable = false;
-    hybernate.enable = true;
+    suspend.enable = true;
+    hybernate.enable = false;
     hybrid-sleep.enable = false;
   };
+
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11"; # Did you read the comment?
 }

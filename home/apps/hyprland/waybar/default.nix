@@ -3,23 +3,33 @@
   userTheme,
   ...
 }: let
-  accentColor = 
+  accentColor =
     if userTheme == "everforest"
     then "#859966"
     else "#697d97";
+  vpnStatusScript = pkgs.writeShellScriptBin "vpn-status" ''
+    #!/bin/sh
+    # This uses the EXACT same path that the sudo rule allows
+    if sudo ${pkgs.wireguard-tools}/bin/wg show | grep -q "latest handshake"; then
+      printf '{"text": " VPN", "tooltip": "VPN Connected", "class": "connected"}'
+    fi
+  '';
 in {
   programs = {
     waybar = {
       enable = true;
-      style = (builtins.readFile ./everforest-style.css);
+      style =
+        if userTheme == "everforest"
+        then (builtins.readFile ./everforest-style.css)
+        else (builtins.readFile ./nordic-style.css);
       settings = {
         mainBar = {
           layer = "top";
           position = "top";
           height = 24;
           spacing = 4;
-          modules-left = ["hyprland/workspaces" "backlight" "idle_inhibitor" "pulseaudio"];
-          modules-right = ["cpu" "memory" "disk" "network" "custom/vpn" "battery" "clock"];
+          modules-left = ["hyprland/workspaces" "backlight" "pulseaudio"];
+          modules-right = ["temperature" "cpu" "memory" "disk" "network" "custom/vpn" "battery" "clock"];
           "hyprland/workspaces" = {
             format = "<sub>{icon}</sub>{windows}";
             format-window-separator = "|";
@@ -47,18 +57,11 @@ in {
           backlight = {
             format = ''<span color="${accentColor}">BL</span> {percent}%'';
           };
-          idle_inhibitor = {
-            format = ''<span color="${accentColor}">IDL</span> {icon}'';
-            format-icons = {
-              activated = "";
-              deactivated = "";
-            };
-          };
           pulseaudio = {
-            format = ''<span color="${accentColor}">VOL</span> {volume}% {icon} {format_source}'';
-            format-bluetooth = ''<span color="${accentColor}">VOL</span> 󰂯 {volume}% {icon} {format_source}'';
-            format-bluetooth-muted = ''<span color="${accentColor}">VOL</span> 󰂯 {volume}% {icon}  {format_source}'';
-            format-muted = ''<span color="${accentColor}">VOL</span> {volume}%  {format_source}'';
+            format = ''{volume}% {icon} {format_source}'';
+            format-bluetooth = ''󰂯 {volume}% {icon} {format_source}'';
+            format-bluetooth-muted = ''󰂯 {volume}% {icon}  {format_source}'';
+            format-muted = ''{volume}%  {format_source}'';
             format-source = "{volume}% 󰍬";
             format-source-muted = "󰍭";
             format-icons = {
@@ -73,6 +76,14 @@ in {
           };
           cpu = {
             format = ''<span color="${accentColor}">CPU</span> {usage}%'';
+            interval = 3;
+            states = {
+              critical = 90;
+            };
+          };
+          temperature = {
+            "hwmon-path" = "/sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input";
+            format = ''<span color="${accentColor}">TEM</span> {temperatureC}°C'';
             interval = 3;
             states = {
               critical = 90;
@@ -94,15 +105,15 @@ in {
             interface = "wlo1";
             interval = 3;
             format = ''<span color="${accentColor}">NET</span> {ifname}'';
-            format-wifi = ''<span color="#d3869b">{essid}</span> 󰖩 ({signalStrength}%) <span color="${accentColor}">UP</span> {bandwidthUpBytes} <span color="${accentColor}">DN</span> {bandwidthDownBytes}'';
-            format-ethernet = ''<span color="#d3869b">{ipaddr}/{cidr}</span> <span color="${accentColor}">UP</span> {bandwidthUpBytes} <span color="${accentColor}">DN</span> {bandwidthDownBytes}'';
+            format-wifi = ''<span color="#d3869b">{essid}</span> 󰖩 ({signalStrength}%) <span color="${accentColor}"></span> {bandwidthUpBytes} <span color="${accentColor}"></span> {bandwidthDownBytes}'';
+            format-ethernet = ''<span color="#d3869b">{ipaddr}/{cidr}</span> <span color="${accentColor}"></span> {bandwidthUpBytes} <span color="${accentColor}"></span> {bandwidthDownBytes}'';
             format-disconnected = ''<span color="${accentColor}">NET</span> <span color="#7c6f64">disconnected</span>'';
           };
           "custom/vpn" = {
-            exec = "${pkgs.luajit}/bin/luajit ~/.local/share/scripts/vpn.lua";
-            exec-if = ''systemctl is-active "openvpn-*"'';
-            interval = 60;
-            format = ''<span color="${accentColor}">VPN</span> {}'';
+            # TODO: solve this via script
+            exec = "${vpnStatusScript}/bin/vpn-status";
+            return-type = "json";
+            interval = 10;
           };
           battery = {
             interval = 60;
@@ -110,7 +121,7 @@ in {
               warning = 30;
               critical = 15;
             };
-            format = ''<span color="${accentColor}">BAT</span> {capacity}%'';
+            format = ''<span color="${accentColor}"></span> {capacity}%'';
           };
           clock = {
             format = "{:%F %R}";
@@ -121,9 +132,10 @@ in {
       systemd.enable = true;
     };
   };
-  # home.file = {
-  #   ".local/share/scripts/vpn.lua" = {
-  #     source = ./../scripts/vpn.lua;
-  #   };
-  # };
+  home.file = {
+    ".local/share/scripts/vpn-status" = {
+      source = ./../scripts/vpn-status;
+      executable = true;
+    };
+  };
 }
