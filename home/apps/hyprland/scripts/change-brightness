@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+current=$(/run/current-system/sw/bin/brightnessctl -q g)
+max=$(/run/current-system/sw/bin/brightnessctl -q m)
+step=5
+
+# Avoid division by zero
+if [ "$max" -eq 0 ]; then
+  exit 0
+fi
+
+percentage=$((100 * current / max))
+
+# Use a 1% step ONLY when trying to go down while already low,
+# or trying to go up while already high.
+if [[ "$1" == "down" && "$percentage" -le 5 ]]; then
+  step=1
+elif [[ "$1" == "down" && "$percentage" -gt 95 ]]; then
+  step=1
+elif [[ "$1" == "up" && "$percentage" -ge 95 ]]; then
+  step=1
+elif [[ "$1" == "up" && "$percentage" -lt 5 ]]; then
+  step=1
+fi
+
+case "$1" in
+  up)   /run/current-system/sw/bin/brightnessctl -q s "${step}%+" ;;
+  down) /run/current-system/sw/bin/brightnessctl -q s "${step}%-" ;;
+esac

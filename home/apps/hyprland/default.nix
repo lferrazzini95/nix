@@ -4,8 +4,7 @@
   userTheme,
   ...
 }: let
-  # vpnToggleScript = pkgs.writeShellScriptBin "vpn-toggle" ''
-  # '';
+  colors = import ./../../../colors.nix {inherit userTheme;};
 in {
   imports = [
     (import ./waybar/default.nix {inherit pkgs username userTheme;})
@@ -29,6 +28,10 @@ in {
     };
     ".local/bin/vpn-selector" = {
       source = ./scripts/vpn-selector;
+      executable = true;
+    };
+    ".local/bin/change-brightness" = {
+      source = ./scripts/change-brightness;
       executable = true;
     };
   };
@@ -68,7 +71,7 @@ in {
           border_size = 2;
           gaps_in = 0;
           gaps_out = 0;
-          "col.active_border" = "rgb(83C092)";
+          "col.active_border" = "rgb(${builtins.substring 1 7 colors.aqua})";
           layout = "dwindle";
         };
         decoration = {
@@ -150,8 +153,10 @@ in {
         bindle = [
           '', XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%+''
           '', XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-''
-          '', XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s 1%-''
-          '', XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s +1%''
+          # '', XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s 1%-''
+          # '', XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s +1%''
+          '', XF86MonBrightnessDown, exec, /home/${username}/.local/bin/change-brightness down''
+          '', XF86MonBrightnessUp,   exec, /home/${username}/.local/bin/change-brightness up''
         ];
       };
 
