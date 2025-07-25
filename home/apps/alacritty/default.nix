@@ -1,6 +1,6 @@
 { pkgs, userTheme, ... }:
 let
-  alacrittyTheme = import ./themes/${userTheme}.nix;
+  alacrittyTheme = import ./themes/dynamic-theme.nix {inherit userTheme;} ;
 in
 {
   programs.alacritty = {
