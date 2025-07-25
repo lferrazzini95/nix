@@ -4,21 +4,15 @@
   userTheme,
   ...
 }: let
-  vpnToggleScript = pkgs.writeShellScriptBin "vpn-toggle" ''
-    #!/bin/sh
-    # Check if the wg0 interface exists and is "up"
-    if ip link show wg0 up > /dev/null; then
-      # If it's up, bring it down
-      gksudo ${pkgs.wireguard-tools}/bin/wg-quick down wg0
-    else
-      # If it's down, bring it up
-      gksudo ${pkgs.wireguard-tools}/bin/wg-quick up wg0
-    fi
-  '';
+  # vpnToggleScript = pkgs.writeShellScriptBin "vpn-toggle" ''
+  # '';
 in {
   imports = [
-    (import ./waybar/default.nix {inherit pkgs userTheme;})
+    (import ./waybar/default.nix {inherit pkgs username userTheme;})
+    (import ./hyprlock.nix {inherit pkgs userTheme;})
+    (import ./hypridle.nix {inherit pkgs userTheme;})
   ];
+
   home.packages = with pkgs; [
     swww
     rofi-wayland
@@ -31,6 +25,10 @@ in {
     };
     ".local/bin/rofi-bluetooth" = {
       source = ./scripts/rofi-bluetooth;
+      executable = true;
+    };
+    ".local/bin/vpn-selector" = {
+      source = ./scripts/vpn-selector;
       executable = true;
     };
   };
@@ -102,11 +100,17 @@ in {
         };
 
         bind = [
-          # SUPER + ENTER  ->  Open Kitty terminal
+          #====Basic Commands====#
+          # open terminal
           "$mainMod, RETURN, exec, alacritty"
-          "$mainMod, L, exec, systemctl suspend"
 
-          "$mainMod, V, exec, ${vpnToggleScript}/bin/vpn-toggle"
+          # lock screen
+          "$mainMod, L, exec, hyprlock"
+
+          # custom bindings
+          "$mainMod, V, exec, /home/${username}/.local/bin/vpn-selector"
+          "$mainMod, B, exec, /home/${username}/.local/bin/rofi-bluetooth"
+          "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
 
           # ALT + Direction move focus
           ''$wm, L, movefocus, r''
@@ -120,16 +124,21 @@ in {
 
           # SUPER + D      ->  Open Rofi application launcher
           "$mainMod, D, exec, rofi -show drun -show-icons"
-          "$mainMod, B, exec, rofi-bluetooth"
-          "$mainMod, W, exec, rofi-wifi-menu"
 
-          # Workspaces
+          #====Workspaces====#
+          # move to workspace X
+          "$mainMod, 1, workspace, 1"
+          "$mainMod, 2, workspace, 2"
+          "$mainMod, 3, workspace, 3"
+          "$mainMod, 4, workspace, 4"
+          "$mainMod, 5, workspace, 5"
+
+          # move window to workspace X
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
           "$mainMod SHIFT, 3, movetoworkspace, 3"
           "$mainMod SHIFT, 4, movetoworkspace, 4"
           "$mainMod SHIFT, 5, movetoworkspace, 5"
-          "$mainMod SHIFT, 6, movetoworkspace, 6"
 
           "mainMod SHIFT, K, movetoworkspace, e+1"
           "$mainMod SHIFT, J, movetoworkspace, e-1"

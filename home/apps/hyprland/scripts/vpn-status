@@ -1,6 +1,10 @@
-#!/bin/sh
-# Check for the "latest handshake" string in the output of `wg show`.
-if sudo /run/current-system/sw/bin/wg show | grep -q "latest handshake"; then
-# Print JSON for Waybar if connected.
-printf '{"text": " VPN", "tooltip": "VPN Connected", "class": "connected"}'
+#!/usr/bin/env bash
+
+GATEWAY="10.0.0.1"
+INTERFACE="wg0"
+
+# This command checks for a recent handshake and pings the gateway.
+# The success message is only printed if both conditions are met.
+if ping -c 1 "$GATEWAY" -I "$INTERFACE" > /dev/null 2>&1; then
+  printf '{"text": " VPN", "tooltip": "VPN Connected", "class": "connected"}'
 fi

@@ -44,7 +44,7 @@
           {
             publicKey = builtins.readFile /etc/wireguard/serverPublic.key;
             # Only specific traffic should be routed
-            allowedIPs = ["10.43.0.10/32" "192.168.1.225/32"];
+            allowedIPs = ["10.0.0.1/32" "10.43.0.10/32" "192.168.1.225/32"];
             endpoint = builtins.readFile /etc/wireguard/serverEndpoint.txt;
             persistentKeepalive = 25;
           }
@@ -52,19 +52,33 @@
       };
     };
   };
-
-  # For now this is required to run vpn status (allows specific commands without sudo)
-  security.sudo.extraRules = [
+security.sudo.extraRules = [
     {
-      users = [username];
+      users = [ username ];
       commands = [
         {
-          command = "${pkgs.wireguard-tools}/bin/wg show";
-          options = ["NOPASSWD"];
+          command = "/run/current-system/sw/bin/systemctl start wireguard-wg0.service";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/systemctl stop wireguard-wg0.service";
+          options = [ "NOPASSWD" ];
         }
       ];
     }
   ];
+
+  # security.sudo.extraRules = [
+  #   {
+  #     users = [username];
+  #     commands = [
+  #       {
+  #         command = "${pkgs.wireguard-tools}/bin/wg show";
+  #         options = ["NOPASSWD"];
+  #       }
+  #     ];
+  #   }
+  # ];
 
   # Time & Localization
   time.timeZone = "Europe/Rome";
@@ -170,7 +184,6 @@
       wireguard-tools
       brightnessctl
       rofi
-      rofi-bluetooth
       # android-studio
     ];
     sessionVariables = {
@@ -184,7 +197,6 @@
       polkitPolicyOwners = [username];
     };
     _1password.enable = true;
-    # };
     hyprland = {
       enable = true;
       xwayland = {

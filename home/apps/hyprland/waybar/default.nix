@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   userTheme,
   ...
 }: let
@@ -7,13 +8,6 @@
     if userTheme == "everforest"
     then "#859966"
     else "#697d97";
-  vpnStatusScript = pkgs.writeShellScriptBin "vpn-status" ''
-    #!/bin/sh
-    # This uses the EXACT same path that the sudo rule allows
-    if sudo ${pkgs.wireguard-tools}/bin/wg show | grep -q "latest handshake"; then
-      printf '{"text": " VPN", "tooltip": "VPN Connected", "class": "connected"}'
-    fi
-  '';
 in {
   programs = {
     waybar = {
@@ -111,7 +105,7 @@ in {
           };
           "custom/vpn" = {
             # TODO: solve this via script
-            exec = "${vpnStatusScript}/bin/vpn-status";
+            exec = "/home/${username}/.local/bin/vpn-status";
             return-type = "json";
             interval = 10;
           };
@@ -133,7 +127,7 @@ in {
     };
   };
   home.file = {
-    ".local/share/scripts/vpn-status" = {
+    ".local/bin/vpn-status" = {
       source = ./../scripts/vpn-status;
       executable = true;
     };

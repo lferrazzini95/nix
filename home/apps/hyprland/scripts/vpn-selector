@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Get list of WireGuard connections and present it to Rofi
+chosen=$(systemctl list-unit-files | grep -E 'wireguard-[a-zA-Z0-9]+\.service' | awk '{print $1}' | rofi -dmenu -i -p "󰖂 Toggle VPN")
+
+[ -z "$chosen" ] && exit
+
+if systemctl status $chosen | grep " active "  > /dev/null 2>&1; then
+    sudo /run/current-system/sw/bin/systemctl stop $chosen
+else
+    sudo /run/current-system/sw/bin/systemctl start $chosen
+fi
