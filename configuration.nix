@@ -52,6 +52,8 @@
       };
     };
   };
+
+# required to steer vpn connection through hyrpland binding
 security.sudo.extraRules = [
     {
       users = [ username ];
@@ -67,18 +69,6 @@ security.sudo.extraRules = [
       ];
     }
   ];
-
-  # security.sudo.extraRules = [
-  #   {
-  #     users = [username];
-  #     commands = [
-  #       {
-  #         command = "${pkgs.wireguard-tools}/bin/wg show";
-  #         options = ["NOPASSWD"];
-  #       }
-  #     ];
-  #   }
-  # ];
 
   # Time & Localization
   time.timeZone = "Europe/Rome";

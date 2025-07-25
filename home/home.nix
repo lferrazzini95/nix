@@ -38,6 +38,7 @@ in {
     (import ./apps/bash/default.nix {inherit pkgs userTheme;})
     (import ./apps/gpg/default.nix {inherit pkgs;})
     (import ./apps/starship/default.nix {inherit pkgs userTheme;})
+    (import ./apps/rofi/default.nix {inherit pkgs username userTheme;})
     (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
   ];
 
@@ -53,6 +54,13 @@ in {
     };
     ".local/bin/tn" = {
       source = ./scripts/tn;
+      executable = true;
+    };
+    ".local/bin/play-notification.sh" = {
+      text = ''
+        #!/bin/sh
+        ffplay -v 0 -nodisp -autoexit /home/${username}/.local/share/sounds/notification.mp3
+      '';
       executable = true;
     };
   };
@@ -76,6 +84,8 @@ in {
     zip
     fzf
     openssl
+    wl-clipboard
+    wl-screenrec
 
     #env
     devbox
@@ -133,6 +143,7 @@ in {
       };
     };
   };
+
   programs = {
     home-manager.enable = true;
     zoxide = {
