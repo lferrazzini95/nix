@@ -17,6 +17,7 @@
       name = "Everforest-Dark-BL";
     }
     else pkgs.defaultTheme;
+  colors = import ./../colors.nix {inherit userTheme;};
 in {
   #Manage Appearance
   gtk = {
@@ -116,23 +117,23 @@ in {
         };
 
         urgency_low = {
-          frame_color = "#1D918B";
-          foreground = "#FFEE79";
-          background = "#18191E";
+          frame_color = colors.selection;
+          foreground = colors.foreground;
+          background = colors.background;
           timeout = 2;
         };
 
         urgency_normal = {
-          frame_color = "#D16BB7";
-          foreground = "#FFEE79";
-          background = "#18191E";
+          frame_color = colors.yellow;
+          foreground = colors.foreground;
+          background = colors.background;
           timeout = 5;
         };
 
         urgency_critical = {
-          frame_color = "#FC2929";
-          foreground = "#FFFF00";
-          background = "#18191E";
+          frame_color = colors.red;
+          foreground = colors.foreground;
+          background = colors.background;
           timeout = 0;
         };
 
