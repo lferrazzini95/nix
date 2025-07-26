@@ -11,6 +11,12 @@
     "nix-command"
     "flakes"
   ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   # Bootloader
   boot = {
     loader = {
@@ -53,18 +59,18 @@
     };
   };
 
-# required to steer vpn connection through hyrpland binding
-security.sudo.extraRules = [
+  # required to steer vpn connection through hyrpland binding
+  security.sudo.extraRules = [
     {
-      users = [ username ];
+      users = [username];
       commands = [
         {
           command = "/run/current-system/sw/bin/systemctl start wireguard-wg0.service";
-          options = [ "NOPASSWD" ];
+          options = ["NOPASSWD"];
         }
         {
           command = "/run/current-system/sw/bin/systemctl stop wireguard-wg0.service";
-          options = [ "NOPASSWD" ];
+          options = ["NOPASSWD"];
         }
       ];
     }
@@ -174,6 +180,7 @@ security.sudo.extraRules = [
       wireguard-tools
       brightnessctl
       rofi
+      libnotify
       # android-studio
     ];
     sessionVariables = {
