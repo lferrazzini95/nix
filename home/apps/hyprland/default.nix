@@ -60,10 +60,6 @@ in {
         ];
 
         env = [
-          # ''GTK_THEME,Materia-dark''
-          ''GDK_SCALE=2''
-          ''QT_SCALE_FACTOR=2'' # For all Qt apps
-          # ''GDK_DPI_SCALE=0.1''
           ''XDG_SESSION_TYPE,wayland''
         ];
 

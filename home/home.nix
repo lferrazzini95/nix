@@ -8,23 +8,39 @@
   themePackage =
     if userTheme == "nordic"
     then {
-      package = pkgs.nordic;
-      name = "Nordic";
+      gtkPackage = pkgs.nordic;
+      gtkPackageName = "Nordic";
+      iconPackage = pkgs.papirus-icon-theme;
+      iconPackageName = "Papirus-Dark";
+      cursorPackage = pkgs.capitaine-cursors-themed;
+      cursorPackageName = "Capitaine Cursors (Gruvbox)";
     }
     else if userTheme == "everforest"
     then {
-      package = pkgs.everforest-gtk-theme;
-      name = "Everforest-Dark-BL";
+      gtkPackage = pkgs.everforest-gtk-theme;
+      gtkPackageName = "Everforest-Dark-BL";
+      iconPackage = pkgs.papirus-icon-theme;
+      iconPackageName = "Papirus-Dark";
+      cursorPackage = pkgs.capitaine-cursors-themed;
+      cursorPackageName = "Capitaine Cursors (Gruvbox)";
     }
     else pkgs.defaultTheme;
-  colors = import ./../colors.nix {inherit userTheme;};
-in {
+  colors = import ./../colors.nix {inherit userTheme;}; in {
   #Manage Appearance
   gtk = {
     enable = true;
     theme = {
-      package = themePackage.package;
-      name = themePackage.name;
+      package = themePackage.gtkPackage;
+      name = themePackage.gtkPackageName;
+    };
+    iconTheme = {
+      package = themePackage.iconPackage;
+      name =  themePackage.iconPackageName;
+    };
+    cursorTheme = {
+      package = themePackage.cursorPackage;
+      name = themePackage.cursorPackageName;
+      size = 32;
     };
   };
 

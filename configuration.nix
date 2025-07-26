@@ -181,6 +181,7 @@
       brightnessctl
       rofi
       libnotify
+      gemini-cli
       # android-studio
     ];
     sessionVariables = {
