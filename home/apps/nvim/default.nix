@@ -24,9 +24,9 @@ in {
         config = builtins.readFile ./plugins/gitsigns-nvim.lua;
       }
       {
-        plugin = null-ls-nvim;
+        plugin = none-ls-nvim;
         type = "lua";
-        config = builtins.readFile ./plugins/null-ls.lua;
+        config = builtins.readFile ./plugins/none-ls.lua;
       }
       {
         plugin = nvim-colorizer-lua;
@@ -37,11 +37,11 @@ in {
       render-markdown-nvim
       nvim-dap
       lsp-zero-nvim
-      {
-        plugin = kulala-nvim;
-        type = "lua";
-        config = builtins.readFile ./plugins/kulala-nvim.lua;
-      }
+      # {
+      #   plugin = kulala-nvim;
+      #   type = "lua";
+      #   config = builtins.readFile ./plugins/kulala-nvim.lua;
+      # }
       {
         plugin = nvim-lspconfig;
         type = "lua";
