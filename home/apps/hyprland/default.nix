@@ -22,6 +22,10 @@ in {
       source = ./scripts/rofi-wifi-menu;
       executable = true;
     };
+    ".local/bin/power-menu" = {
+      source = ./scripts/power-menu;
+      executable = true;
+    };
     ".local/bin/rofi-bluetooth" = {
       source = ./scripts/rofi-bluetooth;
       executable = true;
@@ -110,6 +114,7 @@ in {
           "$mainMod, V, exec, /home/${username}/.local/bin/vpn-selector"
           "$mainMod, B, exec, /home/${username}/.local/bin/rofi-bluetooth"
           "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
+          "$mainMod, P, exec, /home/${username}/.local/bin/power-menu"
 
           # ALT + Direction move focus
           ''$wm, L, movefocus, r''
