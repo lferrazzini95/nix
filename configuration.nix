@@ -37,6 +37,11 @@
   # Networking
   networking = {
     hostName = "nixos";
+    firewall = {
+      enable = true;
+      rejectPackets = true;
+      allowedTCPPorts = [];
+    };
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -208,7 +213,7 @@
 
   # System & Nix Settings
   systemd.targets = {
-    suspend.enable = true;
+    suspend.enable = false;
     hybernate.enable = false;
     hybrid-sleep.enable = false;
   };

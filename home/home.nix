@@ -25,7 +25,8 @@
       cursorPackageName = "Capitaine Cursors (Gruvbox)";
     }
     else pkgs.defaultTheme;
-  colors = import ./../colors.nix {inherit userTheme;}; in {
+  colors = import ./../colors.nix {inherit userTheme;};
+in {
   #Manage Appearance
   gtk = {
     enable = true;
@@ -35,7 +36,7 @@
     };
     iconTheme = {
       package = themePackage.iconPackage;
-      name =  themePackage.iconPackageName;
+      name = themePackage.iconPackageName;
     };
     cursorTheme = {
       package = themePackage.cursorPackage;

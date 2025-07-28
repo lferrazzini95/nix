@@ -1,7 +1,6 @@
 require("nvim-treesitter.configs").setup({
-  -- ensure_installed = {},
-  -- auto_install = false,
-  parser_install_dir = "~/.config/nvim/parsers/",
+  ensure_installed = {},
+  auto_install = false,
   highlight = {
     enable = true,
   },
