@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   username,
   email,
   userTheme,
@@ -48,7 +49,7 @@ in {
   home.stateVersion = "24.05";
 
   imports = [
-    (import ./apps/nvim/default.nix {inherit pkgs userTheme;})
+    (import ./apps/nvim/default.nix {inherit pkgs pkgs-stable userTheme;})
     (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
     (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
     (import ./apps/tmux/default.nix {inherit pkgs userTheme;})
@@ -86,7 +87,7 @@ in {
   home.packages = with pkgs; [
     atool
     httpie
-    brave
+    pkgs-stable.brave
 
     #administration
     kubectl

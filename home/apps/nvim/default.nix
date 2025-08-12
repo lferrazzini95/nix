@@ -1,8 +1,10 @@
 {
   pkgs,
+  pkgs-stable,
   userTheme,
   ...
 }: let
+stable = import <nixos-unstable> { config = { allowUnfree = true; }; };
   nvim-theme =
     if userTheme == "nordic"
     then pkgs.vimPlugins.nordic-nvim
@@ -38,10 +40,15 @@ in {
       nvim-dap
       lsp-zero-nvim
       # {
-      #   plugin = kulala-nvim;
+      #   plugin = rest-nvim;
       #   type = "lua";
-      #   config = builtins.readFile ./plugins/kulala-nvim.lua;
+      #   config = builtins.readFile ./plugins/rest-nvim.lua;
       # }
+      {
+        plugin = pkgs-stable.vimPlugins.kulala-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/kulala-nvim.lua;
+      }
       {
         plugin = nvim-lspconfig;
         type = "lua";
@@ -58,7 +65,7 @@ in {
         config = builtins.readFile ./plugins/nvim-tree.lua;
       }
       {
-        plugin = nvim-treesitter.withAllGrammars;
+        plugin = pkgs-stable.vimPlugins.nvim-treesitter.withAllGrammars;
         type = "lua";
         config = builtins.readFile ./plugins/nvim-treesitter.lua;
       }
@@ -86,7 +93,6 @@ in {
       deadnix
       statix
       alejandra
-
       cbfmt
 
       shfmt

@@ -50,6 +50,7 @@ local lsp_server_configs = {
       },
     },
   },
+  rustfmt = {},
 }
 
 -- Loop through servers and set them up with shared capabilities

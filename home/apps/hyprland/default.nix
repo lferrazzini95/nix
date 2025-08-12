@@ -144,8 +144,13 @@ in {
           "$mainMod SHIFT, 4, movetoworkspace, 4"
           "$mainMod SHIFT, 5, movetoworkspace, 5"
 
-          "mainMod SHIFT, K, movetoworkspace, e+1"
-          "$mainMod SHIFT, J, movetoworkspace, e-1"
+          "$mainMod SHIFT, H, movewindow, l"
+          "$mainMod SHIFT, L, movewindow, r"
+          "$mainMod SHIFT, K, movewindow, u"
+          "$mainMod SHIFT, J, movewindow, d"
+
+          # "$mainMod SHIFT, K, movetoworkspace, e+1"
+          # "$mainMod SHIFT, J, movetoworkspace, e-1"
 
           "$mainMod, S, movetoworkspace, special"
           "$mainMod SHIFT, S, togglespecialworkspace"

@@ -1,25 +1,16 @@
-local function toggle_nvim_tree_focus()
+local function edit_or_open()
   local api = require("nvim-tree.api")
 
-  local nvim_tree_open = api.tree.is_visible()
-  local nvim_tree_focus = vim.bo.filetype == "NvimTree"
+  local node = api.tree.get_node_under_cursor()
 
-  if not nvim_tree_open then
-    api.tree.open()
-  elseif not nvim_tree_focus then
-    api.tree.focus()
-  elseif nvim_tree_open and nvim_tree_focus then
-    vim.cmd("wincmd p")
-  end
-end
-
-local function toggle_nvim_tree_visibility()
-  local api = require("nvim-tree.api")
-
-  if api.tree.is_visible() then
-    api.tree.close()
+  if node.nodes ~= nil then
+    -- expand or collapse folder
+    api.node.open.edit()
   else
-    api.tree.open()
+    -- open file
+    api.node.open.edit()
+    -- Close the tree if file was opened
+    api.tree.close()
   end
 end
 
@@ -31,20 +22,24 @@ local function on_attach(bufnr)
 
   api.config.mappings.default_on_attach(bufnr)
   vim.keymap.set("n", "s", api.node.open.vertical, opts("open file in vertical mode"))
-  vim.keymap.set("n", "<Leader>e", toggle_nvim_tree_visibility, { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>o", toggle_nvim_tree_focus, { noremap = true, silent = true })
-  vim.keymap.set("n", "l", function()
-    local node = api.tree.get_node_under_cursor()
-    if node then
-      api.node.open.edit()
-    end
-  end, opts("open file or expand folder"))
+  vim.keymap.set("n", "<Leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>o", ":NvimTreeFocus<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "l", edit_or_open, opts("open file or expand folder"))
+
   vim.keymap.set("n", "h", function()
-    local node = api.tree.get_node_under_cursor()
-    if node and node.type == "directory" and node.open then
-      api.node.open.edit()
-    end
+    api.node.open.parent()
   end, opts("collapse folder"))
+  -- local node = api.tree.get_node_under_cursor()
+  -- if node then
+  --   api.node.open.edit()
+  -- end
+  -- end, opts("open file or expand folder"))
+  -- vim.keymap.set("n", "h", function()
+  -- local node = api.tree.get_node_under_cursor()
+  -- if node and node.type == "directory" and node.open then
+  --   api.node.open.edit()
+  -- end
+  -- end, opts("collapse folder"))
 end
 
 require("nvim-tree").setup({

@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   host,
   username,
   ...
@@ -103,7 +104,9 @@
     enableRedistributableFirmware = true;
     graphics = {
       enable = true;
-      enable32Bit = true;
+      extraPackages = with pkgs; [
+        vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
+      ];
     };
     bluetooth = {
       enable = true;
@@ -179,6 +182,7 @@
   environment = {
     systemPackages = with pkgs; [
       xclip
+      htop
       gnugrep
       ripgrep
       unzip
@@ -212,11 +216,17 @@
   virtualisation.docker.enable = true;
 
   # System & Nix Settings
-  systemd.targets = {
-    suspend.enable = false;
-    hybernate.enable = false;
-    hybrid-sleep.enable = false;
-  };
+  # systemd.targets = {
+  #   suspend.enable = false;
+  #   hybernate.enable = false;
+  #   hybrid-sleep.enable = false;
+  # };
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11"; # Did you read the comment?
