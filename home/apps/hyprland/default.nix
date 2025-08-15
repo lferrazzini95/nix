@@ -38,6 +38,10 @@ in {
       source = ./scripts/change-brightness;
       executable = true;
     };
+    ".local/bin/screenshot" = {
+      source = ./scripts/screenshot;
+      executable = true;
+    };
   };
 
   wayland.windowManager = {
@@ -114,6 +118,7 @@ in {
           "$mainMod, V, exec, /home/${username}/.local/bin/vpn-selector"
           "$mainMod, B, exec, /home/${username}/.local/bin/rofi-bluetooth"
           "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
+          "$mainMod, S, exec, /home/${username}/.local/bin/screenshot"
           "$mainMod, P, exec, /home/${username}/.local/bin/power-menu"
 
           # ALT + Direction move focus
@@ -152,7 +157,7 @@ in {
           # "$mainMod SHIFT, K, movetoworkspace, e+1"
           # "$mainMod SHIFT, J, movetoworkspace, e-1"
 
-          "$mainMod, S, movetoworkspace, special"
+          # "$mainMod, S, movetoworkspace, special"
           "$mainMod SHIFT, S, togglespecialworkspace"
         ];
 

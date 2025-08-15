@@ -105,6 +105,9 @@ in {
     openssl
     wl-clipboard
     wl-screenrec
+    slurp
+    grim
+
 
     #env
     devbox

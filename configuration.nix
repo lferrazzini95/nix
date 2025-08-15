@@ -104,9 +104,7 @@
     enableRedistributableFirmware = true;
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
-      ];
+      extraPackages = with pkgs; [intel-media-driver intel-vaapi-driver libvdpau-va-gl];
     };
     bluetooth = {
       enable = true;
@@ -123,7 +121,10 @@
     };
     pipewire = {
       enable = true;
-      wireplumber.enable = true;
+      package = pkgs-stable.pipewire;
+      wireplumber = {
+        package = pkgs-stable.wireplumber;
+      };
       alsa = {
         enable = true;
         support32Bit = true;
@@ -186,6 +187,7 @@
       gnugrep
       ripgrep
       unzip
+      glib
       wireguard-tools
       brightnessctl
       rofi
@@ -195,6 +197,7 @@
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      LIBVA_DRIVER_NAME = "iHD";
     };
   };
 
