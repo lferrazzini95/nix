@@ -34,6 +34,7 @@ in
           columns = 100;
           lines = 30;
         };
+        opacity = 0.8;
       };
       selection = {
         save_to_clipboard = true;

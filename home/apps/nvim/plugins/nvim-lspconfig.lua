@@ -1,5 +1,8 @@
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+local on_attach = function(client, bufnr)
+  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+end
 -- Define LSP servers and their specific configurations
 local lsp_server_configs = {
   pyright = {
@@ -50,11 +53,31 @@ local lsp_server_configs = {
       },
     },
   },
-  rustfmt = {},
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        imports = {
+          granularity = {
+            group = "module",
+          },
+          prefix = "self",
+        },
+        cargo = {
+          buildScripts = {
+            enable = true,
+          },
+        },
+        procMacro = {
+          enable = true,
+        },
+      },
+    },
+  },
 }
 
 -- Loop through servers and set them up with shared capabilities
 for server, config in pairs(lsp_server_configs) do
+  config.on_attach = on_attach
   config.capabilities = capabilities
   require("lspconfig")[server].setup(config)
 end
