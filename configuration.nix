@@ -27,15 +27,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs-stable.linuxPackages_latest;
-    kernelParams = [
-      "iwlwifi.bt_coex_active=0"
-      "iwlwifi.swcrypto=1"
-      "iwlwifi.power_save=0"
-      "iwlwifi.d0i3_disable=0"
-      "iwlwifi.uapsd_disable=0"
-      "iwlmvm.power_scheme=1"
-    ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # Networking
@@ -46,7 +38,6 @@
       rejectPackets = true;
       allowedTCPPorts = [];
     };
-    wireless.iwd.enable = false;
     networkmanager = {
       enable = true;
       wifi.powersave = false;
