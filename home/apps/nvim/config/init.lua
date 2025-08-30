@@ -109,11 +109,6 @@ vim.api.nvim_set_keymap("n", "<Leader>bw", ":w<CR>", { noremap = true, silent = 
 ----------------------------
 -- Configure LSP settings --
 ----------------------------
-vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = true,
-  signs = true,
-  update_in_insert = true,
-})
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()

@@ -4,7 +4,6 @@
   userTheme,
   ...
 }: let
-stable = import <nixos-unstable> { config = { allowUnfree = true; }; };
   nvim-theme =
     if userTheme == "nordic"
     then pkgs.vimPlugins.nordic-nvim
@@ -15,39 +14,13 @@ in {
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
-      {
-        plugin = indent-blankline-nvim;
-        type = "lua";
-        config = builtins.readFile ./plugins/indent-blankline-nvim.lua;
-      }
-      {
-        plugin = gitsigns-nvim;
-        type = "lua";
-        config = builtins.readFile ./plugins/gitsigns-nvim.lua;
-      }
-      {
-        plugin = none-ls-nvim;
-        type = "lua";
-        config = builtins.readFile ./plugins/none-ls.lua;
-      }
-      {
-        plugin = nvim-colorizer-lua;
-        type = "lua";
-        config = builtins.readFile ./plugins/nvim-colorizer-lua.lua;
-      }
-      bufferline-nvim
-      render-markdown-nvim
+      #---- lsp/dap/completion ----#
       nvim-dap
-      lsp-zero-nvim
-      # {
-      #   plugin = rest-nvim;
-      #   type = "lua";
-      #   config = builtins.readFile ./plugins/rest-nvim.lua;
-      # }
+      nvim-java
       {
-        plugin = pkgs-stable.vimPlugins.kulala-nvim;
+        plugin = blink-cmp;
         type = "lua";
-        config = builtins.readFile ./plugins/kulala-nvim.lua;
+        config = builtins.readFile ./plugins/blink-cmp.lua;
       }
       {
         plugin = nvim-lspconfig;
@@ -55,23 +28,39 @@ in {
         config = builtins.readFile ./plugins/nvim-lspconfig.lua;
       }
       {
-        plugin = blink-cmp;
+        plugin = pkgs-stable.vimPlugins.nvim-treesitter.withAllGrammars;
         type = "lua";
-        config = builtins.readFile ./plugins/blink-cmp.lua;
+        config = builtins.readFile ./plugins/nvim-treesitter.lua;
+      }
+      {
+        plugin = none-ls-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/none-ls.lua;
+      }
+      # {
+      #   plugin = pkgs-stable.vimPlugins.rust-tools-nvim;
+      #   type = "lua";
+      #   config = builtins.readFile ./plugins/rust-tools.lua;
+      # }
+      #---- utilities ----#
+      bufferline-nvim
+      telescope-nvim
+      vim-commentary
+      {
+        plugin = gitsigns-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/gitsigns-nvim.lua;
+      }
+      {
+        plugin = pkgs-stable.vimPlugins.kulala-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/kulala-nvim.lua;
       }
       {
         plugin = nvim-tree-lua;
         type = "lua";
         config = builtins.readFile ./plugins/nvim-tree.lua;
       }
-      {
-        plugin = pkgs-stable.vimPlugins.nvim-treesitter.withAllGrammars;
-        type = "lua";
-        config = builtins.readFile ./plugins/nvim-treesitter.lua;
-      }
-      rainbow-delimiters-nvim
-      telescope-nvim
-      vim-commentary
       {
         plugin = which-key-nvim;
         type = "lua";
@@ -81,6 +70,19 @@ in {
         plugin = renamer-nvim;
         type = "lua";
         config = builtins.readFile ./plugins/renamer.lua;
+      }
+      #---- visuals ----#
+      render-markdown-nvim
+      rainbow-delimiters-nvim
+      {
+        plugin = nvim-colorizer-lua;
+        type = "lua";
+        config = builtins.readFile ./plugins/nvim-colorizer-lua.lua;
+      }
+      {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = builtins.readFile ./plugins/indent-blankline-nvim.lua;
       }
       {
         plugin = nvim-theme;
@@ -94,6 +96,7 @@ in {
       statix
       alejandra
       cbfmt
+      pyright
 
       shfmt
       shellharden
@@ -101,12 +104,13 @@ in {
       gofumpt
       goimports-reviser
       revive
+      pkgs-stable.rust-analyzer
 
+      jdt-language-server
       gopls
       yaml-language-server
       helm-ls
       marksman
-      rust-analyzer
       rustfmt
       terraform-ls
       nil
