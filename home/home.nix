@@ -28,6 +28,22 @@
     else pkgs.defaultTheme;
   colors = import ./../colors.nix {inherit userTheme;};
 in {
+
+  home.stateVersion = "24.05";
+
+  imports = [
+    (import ./apps/nvim/default.nix {inherit pkgs pkgs-stable userTheme;})
+    (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
+    (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
+    (import ./apps/tmux/default.nix {inherit pkgs userTheme;})
+    (import ./apps/k9s/default.nix {inherit pkgs userTheme;})
+    (import ./apps/bash/default.nix {inherit pkgs userTheme;})
+    (import ./apps/gpg/default.nix {inherit pkgs;})
+    (import ./apps/starship/default.nix {inherit pkgs userTheme;})
+    (import ./apps/rofi/default.nix {inherit pkgs username userTheme;})
+    (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
+  ];
+
   #Manage Appearance
   gtk = {
     enable = true;
@@ -45,21 +61,6 @@ in {
       size = 32;
     };
   };
-
-  home.stateVersion = "24.05";
-
-  imports = [
-    (import ./apps/nvim/default.nix {inherit pkgs pkgs-stable userTheme;})
-    (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
-    (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
-    (import ./apps/tmux/default.nix {inherit pkgs userTheme;})
-    (import ./apps/k9s/default.nix {inherit pkgs userTheme;})
-    (import ./apps/bash/default.nix {inherit pkgs userTheme;})
-    (import ./apps/gpg/default.nix {inherit pkgs;})
-    (import ./apps/starship/default.nix {inherit pkgs userTheme;})
-    (import ./apps/rofi/default.nix {inherit pkgs username userTheme;})
-    (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
-  ];
 
   home.file = {
     ".background-image".source = ./ui/${userTheme}.jpg;
@@ -97,6 +98,9 @@ in {
     go
     dart
     kubernetes-helm
+    cargo
+    cargo-nextest
+    rustc
 
     #utils
     jq
@@ -107,7 +111,7 @@ in {
     wl-screenrec
     slurp
     grim
-
+    gcc
 
     #env
     devbox
@@ -117,7 +121,6 @@ in {
     jellyfin-media-player
     spotify
     steam
-    ardour
   ];
 
   services = {

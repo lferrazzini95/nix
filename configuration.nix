@@ -8,14 +8,17 @@
   imports = [
     ./hosts/${host}/hardware-configuration.nix
   ];
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+
+  nix = {
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
   };
 
   # Bootloader
@@ -24,7 +27,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs-stable.linuxPackages_latest;
     kernelParams = [
       "iwlwifi.bt_coex_active=0"
       "iwlwifi.swcrypto=1"
@@ -43,6 +46,7 @@
       rejectPackets = true;
       allowedTCPPorts = [];
     };
+    wireless.iwd.enable = false;
     networkmanager = {
       enable = true;
       wifi.powersave = false;

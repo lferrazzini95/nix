@@ -37,11 +37,6 @@ in {
         type = "lua";
         config = builtins.readFile ./plugins/none-ls.lua;
       }
-      # {
-      #   plugin = pkgs-stable.vimPlugins.rust-tools-nvim;
-      #   type = "lua";
-      #   config = builtins.readFile ./plugins/rust-tools.lua;
-      # }
       #---- utilities ----#
       bufferline-nvim
       telescope-nvim
