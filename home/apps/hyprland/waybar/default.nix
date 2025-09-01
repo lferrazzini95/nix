@@ -20,7 +20,7 @@ in {
           height = 24;
           spacing = 4;
           modules-left = ["hyprland/workspaces" "backlight" "pulseaudio"];
-          modules-right = ["temperature" "cpu" "memory" "disk" "network" "custom/vpn" "battery" "clock"];
+          modules-right = [ "cpu" "memory" "disk" "network" "custom/vpn" "battery" "clock"];
           "hyprland/workspaces" = {
             format = "<sub>{icon}</sub>{windows}";
             format-window-separator = "|";
@@ -67,14 +67,6 @@ in {
           };
           cpu = {
             format = ''<span color="${colors.selection}">CPU</span> {usage}%'';
-            interval = 3;
-            states = {
-              critical = 90;
-            };
-          };
-          temperature = {
-            "hwmon-path" = "/sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input";
-            format = ''<span color="${colors.selection}">TEM</span> {temperatureC}°C'';
             interval = 3;
             states = {
               critical = 90;
