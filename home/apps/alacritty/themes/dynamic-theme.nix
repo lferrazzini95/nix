@@ -46,8 +46,7 @@ in {
       green = colors.green;
       yellow = colors.yellow;
       blue = colors.blue;
-      cyan = colors.cyan;
-      white = colors.white;
+      cyan = colors.cyan; white = colors.white;
     };
   };
 }

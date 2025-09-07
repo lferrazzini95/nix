@@ -21,8 +21,7 @@
       selection = "#A7C080";
       comment = "#DBBC7F";
       grey = "#859289";
-      grey0 = "#7a8478";
-      grey1 = "#859289";
+      grey0 = "#7a8478"; grey1 = "#859289";
       grey2 = "#9da9a0";
       statusline1 = "#a7c080";
       statusline2 = "#d3c6aa";
@@ -56,7 +55,7 @@
       fg = "#d8dee9";
       foreground = "#d8dee9";
       current_line = "#4c566a";
-      selection = "#4c566a";
+      selection = "#8fbcbb";
       comment = "#4c566a";
       grey = "#eceff4";
       grey0 = "#d8dee9";

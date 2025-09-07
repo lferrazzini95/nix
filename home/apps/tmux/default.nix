@@ -45,7 +45,7 @@ in
         # ---- Formatting ----
         set-option -g status-left-style none
         set -g status-left-length 60
-        set -g status-left '#[fg=${colors.bgDim},bg=${colors.green},bold] #S #[fg=${colors.green},bg=${colors.bg2},nobold]#[fg=${colors.green},bg=${colors.bg2},bold] #(whoami) #[fg=${colors.bg2},bg=${colors.bg0},nobold]'
+        set -g status-left '#[fg=${colors.bgDim},bg=${colors.selection},bold] #S #[fg=${colors.selection},bg=${colors.bg5},nobold]#[fg=${colors.selection},bg=${colors.bg2},bold] #(whoami) #[fg=${colors.bg2},bg=${colors.bg0},nobold]'
         
         set-option -g status-right-style none
         set -g status-right-length 150
@@ -53,7 +53,7 @@ in
         
         set -g window-status-separator '#[fg=${colors.grey2},bg=${colors.bg0}] '
         set -g window-status-format '#[fg=${colors.grey0},bg=${colors.bg0}] #I  #[fg=${colors.grey0},bg=${colors.bg0}]#W '
-        set -g window-status-current-format '#[fg=${colors.bg0},bg=${colors.bgGreen}]#[fg=${colors.fg},bg=${colors.bgGreen}] #I  #[fg=${colors.fg},bg=${colors.bgGreen},bold]#W #[fg=${colors.bgGreen},bg=${colors.bg0},nobold]'
+        set -g window-status-current-format '#[fg=${colors.bg0},bg=${colors.statusline1}]#[fg=${colors.bg5},bg=${colors.statusline1}] #I  #[fg=${colors.bg5},bg=${colors.statusline1},bold]#W #[fg=${colors.statusline1},bg=${colors.bg0},nobold]'
       '';
   };
 }
