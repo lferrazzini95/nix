@@ -81,10 +81,6 @@ in {
       source = ./scripts/hf;
       executable = true;
     };
-    ".local/bin/tn" = {
-      source = ./scripts/tn;
-      executable = true;
-    };
     ".local/bin/play-notification.sh" = {
       text = ''
         #!/bin/sh

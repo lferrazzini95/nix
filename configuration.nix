@@ -114,6 +114,10 @@
     xserver = {
       videoDrivers = ["intel"];
     };
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+    };
     pipewire = {
       enable = true;
       package = pkgs-stable.pipewire;
@@ -188,6 +192,7 @@
       rofi
       libnotify
       gemini-cli
+      syncthing
       # android-studio
     ];
     sessionVariables = {

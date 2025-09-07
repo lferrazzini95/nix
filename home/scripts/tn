@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-base_dir="$HOME/brain-dump/"
-note=$(ls $base_dir | fzf)
-
-if [[ -n "$note" ]]; then
-  nvim $base_dir$note
-fi
