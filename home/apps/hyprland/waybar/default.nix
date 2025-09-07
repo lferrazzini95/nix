@@ -56,9 +56,9 @@ in {
             format = "{icon}";
             format-window-separator = "|";
             format-icons = {
-              default = "";
-              active = "";
-              empty = "";
+              default = "●";
+              active = "";
+              empty = "○";
               # default = "󰺕";
               # empty = "";
               # presistent = "󰺕";

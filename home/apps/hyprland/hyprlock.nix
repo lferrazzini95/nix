@@ -32,19 +32,17 @@
       input-field = [
         {
           size = "300, 50";
-          outline_thickness = 5;
           dots_size = 0.25;
           dots_spacing = 0.15;
           dots_center = true;
           dots_rounding = -1;
-          outer_color = "rgb(151515)";
           inner_color = "rgb(FFFFFF)";
           font_color = "rgb(10, 10, 10)";
           fade_on_empty = true;
           fade_timeout = 1000;
           placeholder_text = "<i>Input Password...</i>";
           hide_input = false;
-          rounding = -1;
+          rounding = 10;
           check_color = "rgb(204, 136, 34)";
           fail_color = "rgb(204, 34, 34)";
           fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";

@@ -1,6 +1,8 @@
 * {
   font-size: 13px;
   font-family: FiraCode Nerd Font Mono, DemiBold;
+  padding: 0;
+  margin: 0;
   border: none;
 }
 
@@ -8,12 +10,12 @@ window#waybar {
   background-color: rgba(0, 0, 0, 0.0);
   border-bottom: 0px;
   color: @foreground;
+  padding: 0 4px;
 }
 
 #workspaces {
   background-color: @module-background;
   border-radius: 8px;
-  font-size: 8px;
 }
 
 #workspaces button {
@@ -24,6 +26,7 @@ window#waybar {
 
 #workspaces button.active {
   color: @workspace-active;
+  font-size: 15px;
   text-shadow: 0 0 3px @workspace-active;
 }
 

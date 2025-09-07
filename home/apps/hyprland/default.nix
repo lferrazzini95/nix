@@ -43,6 +43,10 @@ in {
       source = ./scripts/screenshot;
       executable = true;
     };
+    ".local/bin/quicknote" = {
+      source = ./scripts/quicknote;
+      executable = true;
+    };
   };
 
   wayland.windowManager = {
@@ -121,6 +125,7 @@ in {
           "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
           "$mainMod, S, exec, /home/${username}/.local/bin/screenshot"
           "$mainMod, P, exec, /home/${username}/.local/bin/power-menu"
+          "$mainMod, N, exec, /home/${username}/.local/bin/quicknote"
 
           # ALT + Direction move focus
           ''$wm, L, movefocus, r''
