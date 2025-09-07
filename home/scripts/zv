@@ -1,2 +1,0 @@
-#!/bin/bash
-z $1 | nvim .

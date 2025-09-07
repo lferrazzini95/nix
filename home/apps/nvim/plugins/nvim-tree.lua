@@ -22,8 +22,7 @@ local function on_attach(bufnr)
 
   api.config.mappings.default_on_attach(bufnr)
   vim.keymap.set("n", "s", api.node.open.vertical, opts("open file in vertical mode"))
-  vim.keymap.set("n", "<Leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>o", ":NvimTreeFocus<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>o", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
   vim.keymap.set("n", "l", edit_or_open, opts("open file or expand folder"))
 
   vim.keymap.set("n", "h", function()

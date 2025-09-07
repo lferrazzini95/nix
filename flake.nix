@@ -18,6 +18,7 @@
   } @ inputs: let
     system = "x86_64-linux";
 
+    lib = nixpkgs.lib;
 
     pkgs = import nixpkgs {
       inherit system;
@@ -29,7 +30,7 @@
       config.allowUnfree = true;
     };
     username = "luca";
-    userTheme = "everforest"; # everforest or nordic
+    userTheme = "everforest"; # everforest or nordic or gargantua
     email = "luca733@gmail.com";
     host = "laptop";
   in {
@@ -40,7 +41,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.users.${username} = import ./home/home.nix {
-              inherit pkgs pkgs-stable username userTheme email;
+              inherit pkgs pkgs-stable username userTheme email lib;
             };
             home-manager.backupFileExtension = "backup";
           }

@@ -9,6 +9,8 @@
     then pkgs.vimPlugins.nordic-nvim
     else if userTheme == "everforest"
     then pkgs.vimPlugins.everforest
+    else if userTheme == "gargantua"
+    then pkgs.vimPlugins.base16-vim
     else pkgs.vimPlugins.defaultTheme;
 in {
   programs.neovim = {

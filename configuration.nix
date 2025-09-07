@@ -110,8 +110,8 @@
 
   # Services
   services = {
+    displayManager.gdm.enable = true;
     xserver = {
-      displayManager.gdm.enable = true;
       videoDrivers = ["intel"];
     };
     pipewire = {

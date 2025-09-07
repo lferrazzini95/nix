@@ -4,6 +4,7 @@
   username,
   email,
   userTheme,
+  lib,
   ...
 }: let
   themePackage =
@@ -25,23 +26,31 @@
       cursorPackage = pkgs.capitaine-cursors-themed;
       cursorPackageName = "Capitaine Cursors (Gruvbox)";
     }
+    else if userTheme == "gargantua"
+    then {
+      gtkPackage = pkgs.adwaita-qt;
+      gtkPackageName = "Adwaita-dark";
+      iconPackage = pkgs.papirus-icon-theme;
+      iconPackageName = "Papirus-Dark";
+      cursorPackage = pkgs.capitaine-cursors-themed;
+      cursorPackageName = "Capitaine Cursors (Adwaita)";
+    }
     else pkgs.defaultTheme;
   colors = import ./../colors.nix {inherit userTheme;};
 in {
-
   home.stateVersion = "24.05";
 
   imports = [
     (import ./apps/nvim/default.nix {inherit pkgs pkgs-stable userTheme;})
     (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
     (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
-    (import ./apps/tmux/default.nix {inherit pkgs userTheme;})
+    (import ./apps/tmux/default.nix {inherit pkgs userTheme lib;})
     (import ./apps/k9s/default.nix {inherit pkgs userTheme;})
     (import ./apps/bash/default.nix {inherit pkgs userTheme;})
     (import ./apps/gpg/default.nix {inherit pkgs;})
     (import ./apps/starship/default.nix {inherit pkgs userTheme;})
     (import ./apps/rofi/default.nix {inherit pkgs username userTheme;})
-    (import ./apps/hyprland/default.nix {inherit pkgs username userTheme;})
+    (import ./apps/hyprland/default.nix {inherit pkgs username userTheme lib;})
   ];
 
   #Manage Appearance
@@ -88,7 +97,7 @@ in {
   home.packages = with pkgs; [
     atool
     httpie
-    pkgs-stable.brave
+    brave
 
     #administration
     kubectl
