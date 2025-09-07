@@ -1,0 +1,99 @@
+* {
+  font-size: 13px;
+  font-family: FiraCode Nerd Font Mono, DemiBold;
+  border: none;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0.0);
+  border-bottom: 0px;
+  color: @foreground;
+}
+
+#workspaces {
+  background-color: @module-background;
+  border-radius: 8px;
+  font-size: 8px;
+}
+
+#workspaces button {
+  background-color: @module-background;
+  color: @foreground;
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#workspaces button.active {
+  color: @workspace-active;
+  text-shadow: 0 0 3px @workspace-active;
+}
+
+#workspaces button:hover {
+  color: @workspace-hover;
+}
+
+#cpu,
+#pulseaudio,
+#backlight,
+#idle_inhibitor,
+#memory,
+#disk,
+#network,
+#custom-vpn,
+#battery,
+#clock {
+  background-color: @module-background;
+  padding: 0 8px;
+}
+
+#network {
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+#disk {
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+#battery.charging {
+  color: @battery-charging;
+}
+
+#battery.plugged {
+  color: @battery-plugged;
+}
+
+@keyframes blink {
+  to {
+    color: rgba(0, 0, 0, 0.0);
+  }
+}
+
+#battery.critical:not(.charging) {
+  animation-direction: alternate;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: blink;
+  animation-timing-function: steps(12);
+  color: @battery-critical;
+}
+
+#pulseaudio.muted {
+  color: @audio-muted;
+}
+
+#pulseaudio.source-muted {
+  color: @audio-source-muted;
+}
+
+#idle_inhibitor.activated {
+  color: @idle-activated;
+}
+
+#cpu.critical {
+  color: @cpu-critical;
+}
+
+#memory.critical {
+  color: @mem-critical;
+}

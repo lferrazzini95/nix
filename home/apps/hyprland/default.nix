@@ -2,12 +2,13 @@
   pkgs,
   username,
   userTheme,
+lib,
   ...
 }: let
   colors = import ./../../../colors.nix {inherit userTheme;};
 in {
   imports = [
-    (import ./waybar/default.nix {inherit pkgs username userTheme;})
+    (import ./waybar/default.nix {inherit pkgs username userTheme lib;})
     (import ./hyprlock.nix {inherit pkgs userTheme;})
     (import ./hypridle.nix {inherit pkgs userTheme;})
   ];
