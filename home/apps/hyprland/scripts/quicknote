@@ -6,9 +6,9 @@ note_selection=$(printf "New\n%s" "$(find "$base_dir" -type f -name "*.md" -prin
 if [[ "$note_selection" == "New" ]]; then
   new_note_name=$(echo "" | rofi -dmenu -p "New note name:")
   if [[ -z "$new_note_name" ]]; then
-    note=$(date +"%Y-%m-%d").md
+    note=inbox/$(date +"%Y-%m-%d").md
   else
-    note=$(echo "$new_note_name.md" | tr ' ' '_')
+    note=$(echo "inbox/$new_note_name.md" | tr ' ' '_')
   fi
 else
   note="$note_selection"

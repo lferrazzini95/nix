@@ -2,6 +2,7 @@
   pkgs,
   pkgs-stable,
   username,
+  fullName,
   email,
   userTheme,
   lib,
@@ -42,7 +43,7 @@ in {
 
   imports = [
     (import ./apps/nvim/default.nix {inherit pkgs pkgs-stable userTheme;})
-    (import ./apps/git/default.nix {inherit pkgs username email userTheme;})
+    (import ./apps/git/default.nix {inherit pkgs username fullName email userTheme;})
     (import ./apps/alacritty/default.nix {inherit pkgs userTheme;})
     (import ./apps/tmux/default.nix {inherit pkgs userTheme lib;})
     (import ./apps/k9s/default.nix {inherit pkgs userTheme;})
@@ -103,9 +104,6 @@ in {
     go
     dart
     kubernetes-helm
-    cargo
-    cargo-nextest
-    rustc
 
     #utils
     jq
@@ -117,6 +115,9 @@ in {
     slurp
     grim
     gcc
+    cargo
+    cargo-nextest
+    rustc
 
     #env
     devbox

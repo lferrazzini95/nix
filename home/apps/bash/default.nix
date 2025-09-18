@@ -11,6 +11,7 @@ in {
       k = "kubectl";
       kctx = "kubectl config current-context";
       kunset = "kubectl config unset current-context";
+      brain = "nvim ~/brain";
     };
     initExtra = ''
       export PATH="$HOME/.local/bin:$PATH"

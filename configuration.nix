@@ -103,7 +103,7 @@
     };
     bluetooth = {
       enable = true;
-      powerOnBoot = false;
+      powerOnBoot = true;
       settings = {General = {Enable = "Source,Sink,Media,Socket";};};
     };
   };
@@ -181,19 +181,26 @@
   # Packages & Environment
   environment = {
     systemPackages = with pkgs; [
+      # utils
+      syncthing
+      libnotify
+      rofi
+      brightnessctl
+      wireguard-tools
       xclip
       htop
       gnugrep
       ripgrep
       unzip
-      glib
-      wireguard-tools
-      brightnessctl
-      rofi
-      libnotify
+
+      #Programming
       gemini-cli
-      syncthing
-      # android-studio
+      glib
+      cargo
+      rustc
+
+      # Programs
+      freecad-wayland
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -216,7 +223,9 @@
   };
 
   # Virtualization
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
 
   # System & Nix Settings
   # systemd.targets = {

@@ -1,10 +1,10 @@
-{ pkgs, username, email, userTheme, ... }:
+{ pkgs, username, fullName, email, userTheme, ... }:
 let
 in
 {
   programs.git = {
     enable = true;
-    userName = username;
+    userName = fullName;
     userEmail = email;
     extraConfig = {
       core = {
@@ -15,6 +15,9 @@ in
       };
       init.defaultBranch = "main";
       safe.directory = "/etc/nixos";
+      format = {
+        signoff = true;
+      };
     }; 
     ignores = [
       "tags"
