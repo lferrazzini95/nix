@@ -19,6 +19,17 @@ vim.diagnostic.config({
   update_in_insert = false, -- Don't update diagnostics while typing
 })
 
+vim.keymap.set("n", "<leader>ds", vim.lsp.buf.signature_help, {
+  buffer = bufnr,
+  desc = "[S]ignature"
+})
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = '[N]ext' })
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = '[P]revious' })
+vim.keymap.set('n', '<leader>dw', vim.diagnostic.open_float, { desc = '[W]indow' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setqflist, { desc = '[L]ist' })
+
+-- Insert mode
+-- vim.api.nvim_buf_set_keymap(0, 'i', '<C-k>', 'vim.lsp.buf.signature_help()', { noremap = true, silent = true })
 ----------------------
 -- General Settings --
 ----------------------
@@ -122,10 +133,6 @@ vim.api.nvim_set_keymap(
   ":lua vim.lsp.buf.format({ async = true })<CR>",
   { noremap = true, silent = true, desc = "[F]ormat" }
 )
-vim.keymap.set("n", "<leader>cs", vim.lsp.buf.signature_help, {
-  buffer = bufnr,
-  desc = "[S]ignature",
-})
 
 ---------------------------
 -- Configure UI settings --
@@ -142,7 +149,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufnr = args.buf
 
-    vim.keymap.set("n", "<leader>ds", function()
+    vim.keymap.set("n", "<leader>di", function()
       vim.diagnostic.open_float(nil, {
         focusable = false,
         border = "rounded", -- Set border for the diagnostic float here
@@ -152,7 +159,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       buffer = bufnr,
       noremap = true,
       silent = true,
-      desc = "[S]how",
+      desc = "[I]nformation",
     })
 
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {

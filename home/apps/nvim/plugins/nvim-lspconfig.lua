@@ -1,23 +1,27 @@
-local capabilities = require("blink.cmp").get_lsp_capabilities()
+local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+local util = require("lspconfig.util")
 
-vim.lsp.set_log_level("debug")
-
-local on_attach = function(client, bufnr)
-	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+-- Register 'ty' server
+if not configs.ty then
+  configs.ty = {
+    default_config = {
+      cmd = { "ty", "server" },
+      filetypes = { "python" },
+      root_dir = util.root_pattern("pyproject.toml", ".git"),
+    },
+  }
 end
 
--- Define LSP servers and their specific configurations
-local lsp_server_configs = {
-	pyright = {
-		python = {
-			analysis = {
-				typeCheckingMode = "strict",
-				diagnosticMode = "openFiles",
-				useLibraryCodeForTypes = true,
-				autoSearchPaths = true,
-			},
-		},
-	},
+-- Shared LSP config
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+local on_attach = function(client, bufnr)
+  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+end
+
+-- Define server-specific settings
+local servers = {
+  ty = {},
 	nil_ls = {
 		settings = {
 			["nil"] = {
@@ -30,12 +34,10 @@ local lsp_server_configs = {
 	lua_ls = {
 		settings = {
 			Lua = {
-				-- Make the server aware of Neovim runtime files
 				workspace = {
 					checkThirdParty = false,
 					library = vim.api.nvim_get_runtime_file("", true),
 				},
-				-- ✅ Tell the server about the 'vim' global
 				diagnostics = {
 					globals = { "vim" },
 				},
@@ -55,16 +57,14 @@ local lsp_server_configs = {
 				usePlaceholders = true,
 			},
 		},
-	}, 
+	},
 	rust_analyzer = {},
 	jdtls = {},
-
 }
 
--- Loop through servers and set them up with shared capabilities
-local lspconfig = require("lspconfig")
-for server, config in pairs(lsp_server_configs) do
+-- Apply shared config and setup
+for name, config in pairs(servers) do
 	config.on_attach = on_attach
 	config.capabilities = capabilities
-	lspconfig[server].setup(config)
+	lspconfig[name].setup(config)
 end

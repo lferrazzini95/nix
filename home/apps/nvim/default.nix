@@ -43,6 +43,7 @@ in {
       bufferline-nvim
       telescope-nvim
       vim-commentary
+      markdown-preview-nvim
       {
         plugin = gitsigns-nvim;
         type = "lua";
@@ -93,7 +94,7 @@ in {
       statix
       alejandra
       cbfmt
-      pyright
+      ty
 
       shfmt
       shellharden
