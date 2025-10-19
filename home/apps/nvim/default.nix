@@ -12,7 +12,27 @@
     else if userTheme == "gargantua"
     then pkgs.vimPlugins.base16-vim
     else pkgs.vimPlugins.defaultTheme;
+
+  neorg-templates = pkgs.vimUtils.buildVimPlugin {
+    name = "neorg-templates";
+    src = pkgs.fetchFromGitHub {
+      owner = "pysan3";
+      repo = "neorg-templates";
+      rev = "v2.0.3";
+      sha256 = "sha256-nZOAxXSHTUDBpUBS/Esq5HHwEaTB01dI7x5CQFB3pcw=";
+    };
+    propagatedBuildInputs = with pkgs.luajitPackages; [luasnip neorg];
+    dependencies = [
+      pkgs.vimPlugins.neorg
+    ];
+  };
 in {
+  home.file = {
+    ".config/nvim/templates/norg/journal.norg" = {
+      source = ./templates/norg/journal.norg;
+    };
+  };
+
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
@@ -44,6 +64,17 @@ in {
       telescope-nvim
       vim-commentary
       markdown-preview-nvim
+      neorg-templates
+      {
+        plugin = luasnip;
+        type = "lua";
+        config = builtins.readFile ./plugins/luasnip.lua;
+      }
+      {
+        plugin = neorg;
+        type = "lua";
+        config = builtins.readFile ./plugins/neorg.lua;
+      }
       {
         plugin = gitsigns-nvim;
         type = "lua";
@@ -102,14 +133,14 @@ in {
       gofumpt
       goimports-reviser
       revive
-      pkgs-stable.rust-analyzer
+      rust-analyzer
+      rustfmt
 
       jdt-language-server
       gopls
       yaml-language-server
       helm-ls
       marksman
-      rustfmt
       terraform-ls
       nil
 

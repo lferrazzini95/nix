@@ -5,6 +5,7 @@ require("which-key").setup({
 		{ "<leader>g", group = "[G]o to", mode = { "n", "v" } },
 		{ "<leader>b", group = "[B]uffer", mode = { "n", "v" } },
 		{ "<leader>s", group = "[S]earch", mode = { "n", "v" } },
+		{ "<leader>n", group = "[N]eorg", mode = { "n", "v" } },
 		{ "<leader>w", group = "[W]orkspace", mode = { "n", "v" } },
 		{ "<leader>t", group = "[T]oggle", mode = { "n", "v" } },
 		{ "<leader>u", group = "[U]tilities", mode = { "n", "v" } },

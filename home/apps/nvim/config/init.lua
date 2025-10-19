@@ -67,6 +67,27 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true, desc = "[T]erminal" }
 )
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<Leader>nt",
+  ":Neorg journal today<CR>",
+  { noremap = true, silent = true, desc = "[T]oday" }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<Leader>ny",
+  ":Neorg journal yesterday<CR>",
+  { noremap = true, silent = true, desc = "[Y]esterday" }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<Leader>nn",
+  ":Neorg journal tomorrow<CR>",
+  { noremap = true, silent = true, desc = "[N]ext Day" }
+)
+
 ---------------------------------
 -- Configure toggles --
 ---------------------------------
