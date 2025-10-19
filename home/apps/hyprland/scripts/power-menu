@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 power_options="  Power Off\n Reboot"
-chosen=$(echo -e "$power_options"  | rofi -dmenu -i -selected-row 1 -p "Power Options: " )
+chosen=$(echo -e "$power_options"  | rofi -dmenu -i -p "Power Options: " )
 
 read -r chosen_id <<< "${chosen_network:3}"
 

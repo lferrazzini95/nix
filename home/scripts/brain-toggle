@@ -2,8 +2,10 @@
 SESSION="brain_session"
 FILE="$HOME/brain"
 
-if ! tmux has-session -t "$SESSION" 2>/dev/null; then
+if ! tmux list-sessions | grep -q "$SESSION"; then
     tmux new-session -d -s "$SESSION" "nvim $FILE"
 fi
 
-tmux popup -xC -yC -w 80% -h 80% "tmux attach-session -t $SESSION"
+tmux popup -xC -yC -w 80% -h 80% 'tmux attach-session -t "$SESSION"'
+
+tmux popup -xC -yC -w 80% -h 80% 'tmux new-session -A -s "$SESSION"'

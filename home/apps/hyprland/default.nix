@@ -9,7 +9,7 @@ lib,
 in {
   imports = [
     (import ./waybar/default.nix {inherit pkgs username userTheme lib;})
-    (import ./hyprlock.nix {inherit pkgs userTheme;})
+    (import ./hyprlock.nix {inherit pkgs username userTheme;})
     (import ./hypridle.nix {inherit pkgs userTheme;})
   ];
 

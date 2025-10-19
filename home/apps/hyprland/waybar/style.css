@@ -15,13 +15,14 @@ window#waybar {
 
 #workspaces {
   background-color: @module-background;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 
 #workspaces button {
   background-color: @module-background;
   color: @foreground;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+  padding: 0 3px;
 }
 
 #workspaces button.active {
@@ -50,12 +51,12 @@ window#waybar {
 
 #network {
   border-bottom-left-radius: 8px;
-  border-top-left-radius: 8px;
+  /* border-top-left-radius: 8px; */
 }
 
 #disk {
   border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
+  /* border-top-right-radius: 8px; */
 }
 
 #battery.charging {

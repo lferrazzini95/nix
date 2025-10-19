@@ -18,7 +18,7 @@ in
       format = {
         signoff = true;
       };
-    }; 
+    };
     ignores = [
       "tags"
       "tags.temp"

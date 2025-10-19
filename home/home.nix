@@ -5,8 +5,7 @@
   fullName,
   email,
   userTheme,
-  lib,
-  ...
+  lib, ...
 }: let
   themePackage =
     if userTheme == "nordic"
@@ -74,12 +73,12 @@ in {
 
   home.file = {
     ".background-image".source = ./ui/${userTheme}.jpg;
-    ".local/bin/opf" = {
-      source = ./scripts/opf;
-      executable = true;
-    };
     ".local/bin/hf" = {
       source = ./scripts/hf;
+      executable = true;
+    };
+    ".local/bin/brain-toggle" = {
+      source = ./scripts/brain-toggle;
       executable = true;
     };
     ".local/bin/play-notification.sh" = {
@@ -116,7 +115,6 @@ in {
     grim
     gcc
     cargo
-    cargo-nextest
     rustc
 
     #env

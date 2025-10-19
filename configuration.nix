@@ -107,6 +107,14 @@
       settings = {General = {Enable = "Source,Sink,Media,Socket";};};
     };
   };
+  users.groups.syncthing-data = {}; # Define a dedicated group
+
+  # Assuming the syncthing service uses the default user "syncthing"
+  users.users.syncthing = {
+    isSystemUser = true;
+    # Add the syncthing service user to the new group
+    extraGroups = ["syncthing-data"];
+  };
 
   # Services
   services = {
@@ -117,6 +125,14 @@
     syncthing = {
       enable = true;
       openDefaultPorts = true;
+      user = "syncthing";
+      group = "syncthing-data";
+      folders = {
+        "brain" = {
+          path = "/home/luca/brain";
+          # devices = ["homelab" "pixel"];
+        };
+      };
     };
     pipewire = {
       enable = true;
@@ -147,7 +163,6 @@
     };
     power-profiles-daemon.enable = false;
   };
-
   users.users.${username} = {
     isNormalUser = true;
     description = username;
@@ -157,11 +172,33 @@
       "docker"
       "video"
       "audio"
+      "syncthing-data"
     ];
     packages = with pkgs; [
     ];
   };
+  systemd.tmpfiles.settings = {
+    "05-luca-home-mode".contents = {
+      # Give it a lower number to run it before the brain folder
+      # Path: /home/luca
+      "/home/luca" = {
+        type = "d";
+        mode = "0711"; # <-- Sets drwx--x--- (Group gets 'x' for traversal)
+        user = "luca";
+        group = "users";
+      };
+    };
 
+    # Ensure this path is also correct for R/W access:
+    "10-brain-folder".contents = {
+      "/home/luca/brain" = {
+        type = "d";
+        mode = "0770";
+        user = "luca";
+        group = "syncthing-data";
+      };
+    };
+  };
   # Fonts
   fonts = {
     enableDefaultPackages = true;
@@ -192,6 +229,7 @@
       gnugrep
       ripgrep
       unzip
+      kitty
 
       #Programming
       gemini-cli
@@ -201,6 +239,7 @@
 
       # Programs
       freecad-wayland
+      ardour
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -209,6 +248,7 @@
   };
 
   programs = {
+    nix-ld.enable = true;
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = [username];
