@@ -3,7 +3,11 @@ local neorg_dir = vim.fn.expand("~") .. "/brain/"
 require("neorg").setup({
   load = {
     ["core.defaults"] = {},
-    ["core.concealer"] = {},
+    ["core.concealer"] = {
+      config = {
+      },
+    },
+    ["core.ui.calendar"] = {},
     ["core.dirman"] = {
       config = {
         workspaces = {

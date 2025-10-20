@@ -67,6 +67,15 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true, desc = "[T]erminal" }
 )
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "norg",
+  callback = function()
+    vim.opt_local.foldlevelstart = 99
+    vim.keymap.set("n", "<leader>tl", "<Plug>(neorg.pivot.list.toggle)", { buffer = true, desc = "[L]ist Neorg" })
+  end,
+  desc = "Set neorg specific setting.",
+})
+
 vim.api.nvim_set_keymap(
   "n",
   "<Leader>nt",

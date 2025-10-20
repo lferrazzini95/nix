@@ -176,19 +176,9 @@
     ];
     packages = with pkgs; [
     ];
+    homeMode = "0711";
   };
   systemd.tmpfiles.settings = {
-    "05-luca-home-mode".contents = {
-      # Give it a lower number to run it before the brain folder
-      # Path: /home/luca
-      "/home/luca" = {
-        type = "d";
-        mode = "0711"; # <-- Sets drwx--x--- (Group gets 'x' for traversal)
-        user = "luca";
-        group = "users";
-      };
-    };
-
     # Ensure this path is also correct for R/W access:
     "10-brain-folder".contents = {
       "/home/luca/brain" = {
