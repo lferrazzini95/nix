@@ -1,4 +1,4 @@
-{ pkgs, username, fullName, email, userTheme, ... }:
+{ pkgs, username, fullName, email, ... }:
 let
 in
 {

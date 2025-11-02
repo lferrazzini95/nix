@@ -1,48 +1,15 @@
 {
   pkgs,
   username,
-  userTheme,
   lib,
   ...
 }: let
-  colors = import ./../../../../colors.nix {inherit userTheme;};
-  waybar-style = builtins.readFile ./style.css;
 in {
   programs = {
     waybar = {
       enable = true;
-      style =
-        lib.strings.replaceStrings [
-          "@foreground"
-          "@module-background"
-          "@workspace-hover"
-          "@workspace-active"
-          "@workspace-empty"
-          "@battery-charging"
-          "@battery-plugged"
-          "@battery-critical"
-          "@audio-muted"
-          "@audio-source-muted"
-          "@idle-activated"
-          "@cpu-critical"
-          "@mem-critical"
-        ]
-        [
-          colors.foreground
-          colors.bg5
-          colors.green
-          colors.selection
-          colors.grey0
-          colors.green
-          colors.purple
-          colors.red
-          colors.grey1
-          colors.red
-          colors.red
-          colors.red
-          colors.red
-        ]
-        waybar-style;
+      # Pass the CSS file content directly
+      style = builtins.readFile ./style.css;
       settings = {
         mainBar = {
           layer = "top";
@@ -59,52 +26,38 @@ in {
               default = "●";
               active = "";
               empty = "○";
-              # default = "󰺕";
-              # empty = "";
-              # presistent = "󰺕";
-              # special = "";
-              # urgent = "";
+              # ... other icons ...
             };
             persistent-workspaces = {
               "*" = 5;
             };
-            # window-rewrite-default = "󰺕";
-            # window-rewrite = {
-            #   "class<com.mitchellh.ghostty>" = "󰊠";
-            #   "class<google-chrome>" = "";
-            #   "class<brave-browser>" = "󰴳";
-            #   "class<firefox>" = "󰈹";
-            # };
           };
+
           backlight = {
-            format = ''<span color="${colors.selection}">BL</span> {percent}%'';
+            format = "󰃞 {percent}%";
           };
           pulseaudio = {
-            format = ''{volume}% {icon} {format_source}'';
-            format-bluetooth = ''󰂯 {volume}% {icon} {format_source}'';
-            format-bluetooth-muted = ''󰂯 {volume}% {icon}  {format_source}'';
-            format-muted = ''{volume}%  {format_source}'';
-            format-source = "{volume}% 󰍬";
+            format = "{icon}{volume}% {format_source}";
+            format-bluetooth = "{icon}󰂯{volume}% {format_source}";
+            format-bluetooth-muted = " 󰂯{icon} {volume}% {format_source}";
+            format-muted = "  {volume}%{format_source}";
+            format-source = "󰍬{volume}%";
             format-source-muted = "󰍭";
             format-icons = {
               headphone = "";
-              hands-free = "";
-              headset = "";
-              phone = "";
-              portable = "";
-              car = "";
+              # ... other icons ...
               default = ["" "" ""];
             };
           };
           cpu = {
-            format = ''<span color="${colors.selection}">C</span> {usage}%'';
+            format = " {usage}%";
             interval = 3;
             states = {
               critical = 90;
             };
           };
           memory = {
-            format = ''<span color="${colors.selection}">M</span> {percentage}%''; #{used:0.1f}/{total:0.1f}Gi'';
+            format = " {percentage}%";
             interval = 3;
             states = {
               critical = 90;
@@ -112,19 +65,18 @@ in {
           };
           disk = {
             interval = 120;
-            format = ''<span color="${colors.selection}">S</span> {percentage_used}%'';
+            format = " {percentage_used}%";
             unit = "GiB";
           };
           network = {
             interface = "wlo1";
             interval = 3;
-            format = ''<span color="${colors.selection}">NET</span> {ifname}'';
-            format-wifi = ''<span color="${colors.aqua}">{essid}</span> 󰖩 ({signalStrength}%)''; # <span color="${colors.selection}"></span> {bandwidthUpBytes} <span color="${colors.selection}"></span> {bandwidthDownBytes}'';
-            format-ethernet = ''<span color="${colors.aqua}">{ipaddr}/{cidr}</span>''; # <span color="${colors.selection}"></span> {bandwidthUpBytes} <span color="${colors.selection}"></span> {bandwidthDownBytes}'';
-            format-disconnected = ''<span color="${colors.selection}">NET</span> <span color="#7c6f64">disconnected</span>'';
+            format = "NET {ifname}";
+            format-wifi = "{essid} 󰖩 ({signalStrength}%)";
+            format-ethernet = "{ipaddr}/{cidr}";
+            format-disconnected = "NET <span color=\"#7c6f64\">disconnected</span>"; # fallback hardcoded color kept
           };
           "custom/vpn" = {
-            # TODO: solve this via script
             exec = "/home/${username}/.local/bin/vpn-status";
             return-type = "json";
             interval = 10;
@@ -135,7 +87,7 @@ in {
               warning = 30;
               critical = 15;
             };
-            format = ''<span color="${colors.selection}"></span> {capacity}%'';
+            format = " {capacity}%";
           };
           clock = {
             format = "{:%F %R}";
@@ -150,6 +102,17 @@ in {
     ".local/bin/vpn-status" = {
       source = ./../scripts/vpn-status;
       executable = true;
+    };
+  };
+  # home.file = {
+  #   ".config/waybar/waybar-wal-apply" = {
+  #     source = ./../scripts/waybar-wal-apply;
+  #     executable = true;
+  #   };
+  # };
+  home.file = {
+    "/home/${username}/.config/waybar/style-base.css" = {
+      source = ./style.css;
     };
   };
 }

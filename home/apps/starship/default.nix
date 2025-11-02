@@ -1,9 +1,7 @@
 {
   pkgs,
-  userTheme,
   ...
 }: let
-  colors = import ./../../../colors.nix {inherit userTheme;};
 in {
   programs.starship = {
     enable = true;
@@ -16,14 +14,14 @@ in {
         truncation_symbol = "…/";
         truncate_to_repo = true;
         read_only = "";
-        style = "bold ${colors.selection}";
+        style = "bold";
         format = "([$read_only]($read_only_style) )[$path]($style) ";
       };
 
       git_branch = {
         symbol = " ";
         format = "╱[ $symbol$branch ]($style)";
-        style = "bold ${colors.foreground}";
+        style = "bold";
         truncation_length = 18;
       };
 
@@ -44,12 +42,16 @@ in {
 
       git_status = {
         format = "([\\[$all_status$ahead_behind\\] ]($style))";
-        style = colors.red;
+        # style = colors.red;
         conflicted = "";
-        ahead = ''[''${count}](${colors.yellow})'';
-        behind = ''[''${count}](${colors.yellow})'';
-        diverged = ''[''${ahead_count}''${behind_count}](${colors.yellow})'';
-        staged = "[$count](${colors.green})";
+        # ahead = ''[''${count}](${colors.yellow})'';
+        # behind = ''[''${count}](${colors.yellow})'';
+        ahead = ''[''${count}()]'';
+        behind = ''[''${count}()]'';
+        # diverged = ''[''${ahead_count}''${behind_count}](${colors.yellow})'';
+        diverged = ''[''${ahead_count}''${behind_count}()]'';
+        # staged = "[$count](${colors.green})";
+        staged = "[$count]()";
         renamed = "󰑕";
         deleted = "󰆳";
       };
@@ -67,10 +69,14 @@ in {
         disabled = false;
         format = "╱ [$symbol $state(\\($name\\)) ]($style)";
         symbol = "";
-        style = "bold ${colors.cyan}";
-        impure_msg = "[ ](bold ${colors.red})";
-        pure_msg = "[ ](bold ${colors.green})";
-        unknown_msg = "[ ](dimmed ${colors.yellow})";
+        # style = "bold ${colors.cyan}";
+        style = "bold";
+        # impure_msg = "[ ](bold ${colors.red})";
+        impure_msg = "[ ](bold)";
+        # pure_msg = "[ ](bold ${colors.green})";
+        pure_msg = "[ ](bold)";
+        # unknown_msg = "[ ](dimmed ${colors.yellow})";
+        unknown_msg = "[ ](dimmed)";
       };
       golang = {
         symbol = " ";
@@ -79,7 +85,7 @@ in {
       kubernetes = {
         disabled = false;
         format = "╱ [$context $symbol $namespace]($style)";
-        style = colors.cyan;
+        # style = colors.cyan;
         symbol = "󱃾";
       };
     };

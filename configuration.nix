@@ -116,6 +116,7 @@
     extraGroups = ["syncthing-data"];
   };
 
+  systemd.services.syncthing.serviceConfig.UMask = "0007";
   # Services
   services = {
     displayManager.gdm.enable = true;
@@ -127,10 +128,12 @@
       openDefaultPorts = true;
       user = "syncthing";
       group = "syncthing-data";
-      folders = {
-        "brain" = {
-          path = "/home/luca/brain";
-          # devices = ["homelab" "pixel"];
+      settings = {
+        folders = {
+          "brain" = {
+            path = "/home/luca/brain";
+            # devices = ["homelab" "pixel"];
+          };
         };
       };
     };
@@ -229,7 +232,7 @@
 
       # Programs
       freecad-wayland
-      ardour
+      lmms
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";

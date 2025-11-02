@@ -1,16 +1,14 @@
 {
   pkgs,
   username,
-  userTheme,
-lib,
+  lib,
   ...
 }: let
-  colors = import ./../../../colors.nix {inherit userTheme;};
 in {
   imports = [
-    (import ./waybar/default.nix {inherit pkgs username userTheme lib;})
-    (import ./hyprlock.nix {inherit pkgs username userTheme;})
-    (import ./hypridle.nix {inherit pkgs userTheme;})
+    (import ./waybar/default.nix {inherit pkgs username lib;})
+    (import ./hyprlock.nix {inherit pkgs username;})
+    (import ./hypridle.nix {inherit pkgs;})
   ];
 
   home.packages = with pkgs; [
@@ -71,7 +69,7 @@ in {
         exec-once = [
           "${pkgs.dunst}/bin/dunst"
           "${pkgs.swww}/bin/swww-daemon"
-          "${pkgs.swww}/bin/swww img /home/${username}/.background-image"
+          # "${pkgs.swww}/bin/swww img /home/${username}/.background-image"
           "${pkgs.hyprland}/bin/hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 24"
         ];
 
@@ -83,7 +81,6 @@ in {
           border_size = 2;
           gaps_in = 0;
           gaps_out = 0;
-          "col.active_border" = "rgb(${builtins.substring 1 7 colors.aqua})";
           layout = "dwindle";
         };
         decoration = {
@@ -126,7 +123,7 @@ in {
           "$mainMod, V, exec, /home/${username}/.local/bin/vpn-selector"
           "$mainMod, B, exec, /home/${username}/.local/bin/rofi-bluetooth"
           "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
-          "$mainMod, S, exec, /home/${username}/.local/bin/screenshot"
+          "$mainMod, C, exec, /home/${username}/.local/bin/screenshot"
           "$mainMod, P, exec, /home/${username}/.local/bin/power-menu"
           "$mainMod, N, exec, /home/${username}/.local/bin/quicknote"
 
@@ -166,8 +163,8 @@ in {
           # "$mainMod SHIFT, K, movetoworkspace, e+1"
           # "$mainMod SHIFT, J, movetoworkspace, e-1"
 
-          # "$mainMod, S, movetoworkspace, special"
-          "$mainMod SHIFT, S, togglespecialworkspace"
+          "$mainMod SHIFT, S, movetoworkspace, special"
+          "$mainMod, S, togglespecialworkspace"
         ];
 
         bindle = [
@@ -177,6 +174,10 @@ in {
           # '', XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s +1%''
           '', XF86MonBrightnessDown, exec, /home/${username}/.local/bin/change-brightness down''
           '', XF86MonBrightnessUp,   exec, /home/${username}/.local/bin/change-brightness up''
+        ];
+        windowrulev2 = [
+          "center, class:Zynaddsubfx"
+          "nofocus, noborder, size < 200 100, floating:1, xwayland:1, class:^$"
         ];
       };
 

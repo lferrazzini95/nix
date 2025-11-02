@@ -27,8 +27,14 @@ require("neorg").setup({
         },
       },
     },
+    ["core.integrations.telescope"] = {
+        config = {
+            insert_file_link = {
+                show_title_preview = true,
+            },
+        }
   },
-})
+}})
 
 local group = vim.api.nvim_create_augroup("NeorgLoadTemplateGroup", { clear = true })
 

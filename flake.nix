@@ -30,7 +30,6 @@
       config.allowUnfree = true;
     };
     username = "luca";
-    userTheme = "everforest"; # everforest or nordic or gargantua
     fullName = "Luca Ferrazzini"; # used for github signing
     email = "luca733@gmail.com";
     host = "laptop";
@@ -42,7 +41,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.users.${username} = import ./home/home.nix {
-              inherit pkgs pkgs-stable username fullName userTheme email lib;
+              inherit pkgs pkgs-stable username fullName email lib;
             };
             home-manager.backupFileExtension = "backup";
           }

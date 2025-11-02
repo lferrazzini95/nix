@@ -1,3 +1,5 @@
+/* --- General Styling --- */
+@import "../../.cache/wal/colors-waybar.css";
 * {
   font-size: 13px;
   font-family: FiraCode Nerd Font Mono, DemiBold;
@@ -9,31 +11,35 @@
 window#waybar {
   background-color: rgba(0, 0, 0, 0.0);
   border-bottom: 0px;
-  color: @foreground;
+  color: @color7; /* foreground */
   padding: 0 4px;
 }
 
+/* --- Workspaces --- */
+
 #workspaces {
-  background-color: @module-background;
+  background-color: @color0; /* module-background */
   border-radius: 0 0 8px 8px;
 }
 
 #workspaces button {
-  background-color: @module-background;
-  color: @foreground;
+  background-color: @color0;
+  color: @color7;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
   padding: 0 3px;
 }
 
 #workspaces button.active {
-  color: @workspace-active;
+  color: @color11; /* workspace-active (green) */
   font-size: 15px;
-  text-shadow: 0 0 3px @workspace-active;
+  text-shadow: 0 0 3px @color11;
 }
 
 #workspaces button:hover {
-  color: @workspace-hover;
+  color: @color6; /* workspace-hover (cyan/aqua) */
 }
+
+/* --- Modules --- */
 
 #cpu,
 #pulseaudio,
@@ -45,7 +51,7 @@ window#waybar {
 #custom-vpn,
 #battery,
 #clock {
-  background-color: @module-background;
+  background-color: @color0;
   padding: 0 8px;
 }
 
@@ -59,12 +65,14 @@ window#waybar {
   /* border-top-right-radius: 8px; */
 }
 
+/* --- Battery Status --- */
+
 #battery.charging {
-  color: @battery-charging;
+  color: @color11; /* battery-charging (green) */
 }
 
 #battery.plugged {
-  color: @battery-plugged;
+  color: @color5; /* battery-plugged (purple) */
 }
 
 @keyframes blink {
@@ -79,25 +87,29 @@ window#waybar {
   animation-iteration-count: infinite;
   animation-name: blink;
   animation-timing-function: steps(12);
-  color: @battery-critical;
+  color: @color1; /* battery-critical (red) */
 }
 
+/* --- Audio Status --- */
+
 #pulseaudio.muted {
-  color: @audio-muted;
+  color: @color8; /* audio-muted (grey) */
 }
 
 #pulseaudio.source-muted {
-  color: @audio-source-muted;
+  color: @color1; /* audio-source-muted (red) */
 }
 
+/* --- System Status --- */
+
 #idle_inhibitor.activated {
-  color: @idle-activated;
+  color: @color3; /* idle-activated (yellow) */
 }
 
 #cpu.critical {
-  color: @cpu-critical;
+  color: @color1; /* cpu-critical (red) */
 }
 
 #memory.critical {
-  color: @mem-critical;
+  color: @color1; /* mem-critical (red) */
 }

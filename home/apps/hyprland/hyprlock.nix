@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  userTheme,
   ...
 }: {
   programs.hyprlock = {
@@ -9,7 +8,7 @@
     settings = {
       background = [
         {
-          path = "/home/${username}/.background-image";
+          path = builtins.readFile /home/${username}/.cache/wal/wal;
           blur_passes = 2;
           blur_size = 4;
         }

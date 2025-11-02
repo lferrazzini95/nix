@@ -1,18 +1,8 @@
 {
   pkgs,
   pkgs-stable,
-  userTheme,
   ...
 }: let
-  nvim-theme =
-    if userTheme == "nordic"
-    then pkgs.vimPlugins.nordic-nvim
-    else if userTheme == "everforest"
-    then pkgs.vimPlugins.everforest
-    else if userTheme == "gargantua"
-    then pkgs.vimPlugins.base16-vim
-    else pkgs.vimPlugins.defaultTheme;
-
   neorg-templates = pkgs.vimUtils.buildVimPlugin {
     name = "neorg-templates";
     src = pkgs.fetchFromGitHub {
@@ -25,6 +15,16 @@
     dependencies = [
       pkgs.vimPlugins.neorg
     ];
+  };
+  neopywal = pkgs.vimUtils.buildVimPlugin {
+    name = "neopywal.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "RedsXDD";
+      repo = "neopywal.nvim";
+      rev = "v2.6.0";
+      sha256 = "sha256-P28gg5fPPPyhepPHOZFgMnGTToCXK+v4ev6oTRSZXtg=";
+    };
+    doCheck = false;
   };
 in {
   home.file = {
@@ -60,11 +60,14 @@ in {
         config = builtins.readFile ./plugins/none-ls.lua;
       }
       #---- utilities ----#
+      vim-be-good
       bufferline-nvim
       telescope-nvim
       vim-commentary
       markdown-preview-nvim
       neorg-templates
+      neorg-telescope
+      neopywal
       {
         plugin = luasnip;
         type = "lua";
@@ -113,11 +116,6 @@ in {
         type = "lua";
         config = builtins.readFile ./plugins/indent-blankline-nvim.lua;
       }
-      {
-        plugin = nvim-theme;
-        type = "lua";
-        config = "vim.cmd('colorscheme ${userTheme}')";
-      }
     ];
     extraLuaConfig = builtins.readFile ./config/init.lua;
     extraPackages = with pkgs; [
@@ -147,6 +145,7 @@ in {
       universal-ctags
 
       clippy
+      harper
 
       stylua
       lua-language-server

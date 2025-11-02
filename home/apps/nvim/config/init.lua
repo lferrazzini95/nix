@@ -4,6 +4,7 @@ vim.g.mapleader = " " -- Sets <Space> as the leader key
 -- Configure diagnostics --
 ---------------------------
 vim.o.updatetime = 300
+vim.cmd.colorscheme("neopywal")
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -50,6 +51,7 @@ vim.wo.number = true
 -------------------------------
 -- Configure window settings --
 -------------------------------
+vim.opt.cmdheight = 0
 vim.api.nvim_set_keymap("n", "<C-h>", ":vertical resize -2<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-l>", ":vertical resize +2<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", ":resize +2<CR>", { noremap = true, silent = true })
@@ -75,6 +77,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   desc = "Set neorg specific setting.",
 })
+
+vim.keymap.set("n", "<leader>ns", "<Plug>(neorg.telescope.search_headings)", { desc = "[S]earch Neorg Headers" })
+
+local brain_dir = vim.fn.expand("~/brain")
+vim.keymap.set('n', '<leader>tt', function()
+    local telescope = require('telescope.builtin')
+    telescope.live_grep({ cwd = brain_dir })
+    vim.fn.feedkeys('^ *([*]+|[-]+) +[(][^x_][)]')
+end, { desc = "Telescope TODOs in ~/brain" })
 
 vim.api.nvim_set_keymap(
   "n",
@@ -167,8 +178,8 @@ vim.api.nvim_set_keymap(
 ---------------------------
 -- Configure UI settings --
 ---------------------------
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
 

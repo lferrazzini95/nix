@@ -1,11 +1,13 @@
-{ pkgs, userTheme, ... }:
-let
-  alacrittyTheme = import ./themes/dynamic-theme.nix {inherit userTheme;} ;
-in
-{
+{pkgs, ...}: let
+in {
   programs.alacritty = {
     enable = true;
     settings = {
+      general = {
+        import = [
+          "/home/luca/.cache/wal/colors-alacritty.toml"
+        ];
+      };
       terminal.shell = {
         program = "${pkgs.tmux}/bin/tmux";
         args = [
@@ -39,8 +41,6 @@ in
       selection = {
         save_to_clipboard = true;
       };
-
-      colors = alacrittyTheme.colors;
     };
   };
 }

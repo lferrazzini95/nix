@@ -7,7 +7,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
+@import "../../.cache/wal/colors-rofi-dark.rasi"
 @import                          "shared/fonts.rasi"
 
 /*****----- Main Window -----*****/
@@ -25,8 +25,6 @@ window {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               10px;
-    border-color:                @selected;
-    background-color:            @background;
     cursor:                      "default";
 }
 
@@ -38,8 +36,6 @@ mainbox {
     padding:                     30px;
     border:                      0px solid;
     border-radius:               10px;
-    border-color:                @selected;
-    background-color:            transparent;
     children:                    [ "inputbar", "message", "listview" ];
 }
 
@@ -50,34 +46,24 @@ inputbar {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               10px;
-    border-color:                @selected;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
+    border-radius:               5px;
     children:                    [ "prompt", "entry" ];
 }
 
 prompt {
     enabled:                     true;
     padding:                     12px;
-    background-color:            @selected;
-    text-color:                  @background;
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "::";
-    background-color:            inherit;
-    text-color:                  inherit;
 }
 entry {
     enabled:                     true;
     padding:                     12px;
-    background-color:            inherit;
-    text-color:                  inherit;
     cursor:                      text;
     placeholder:                 "Search...";
-    placeholder-color:           inherit;
 }
 
 /*****----- Listview -----*****/
@@ -96,18 +82,12 @@ listview {
     spacing:                     10px;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
     border-radius:               10px;
-    border-color:                @selected;
-    background-color:            transparent;
-    text-color:                  @foreground;
     cursor:                      "default";
 }
 scrollbar {
     handle-width:                5px ;
-    handle-color:                @selected;
     border-radius:               10px;
-    background-color:            @background-alt;
 }
 
 /*****----- Elements -----*****/
@@ -115,38 +95,23 @@ element {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     5px;
-    border:                      0px solid;
+    padding:                     10px;
     border-radius:               10px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
     cursor:                      pointer;
 }
 element normal.normal {
-    background-color:            @background-alt;
-    text-color:                  @foreground;
 }
 element alternate.normal {
-    background-color:            @background-alt;
-    text-color:                  @foreground;
 }
 element selected.normal {
-    border:                      4px;
-    background-color:            @selected;
-    text-color:                  @background;
-    border-radius:               10px;
+    padding:                     20px;
 }
 element-icon {
     padding:                     0px 0px 0px 10px;
-    background-color:            transparent;
-    text-color:                  inherit;
     size:                        32px;
     cursor:                      inherit;
 }
 element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
     highlight:                   inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
@@ -158,23 +123,15 @@ message {
     padding:                     15px;
     border:                      2px solid;
     border-radius:               10px;
-    border-color:                @selected;
-    background-color:            @background;
-    text-color:                  @foreground;
 }
 
 error-message {
     padding:                     15px;
     border:                      2px solid;
     border-radius:               10px;
-    border-color:                @urgent;
-    background-color:            @background;
-    text-color:                  @foreground;
 }
 
 textbox {
-    background-color:            @background;
-    text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;

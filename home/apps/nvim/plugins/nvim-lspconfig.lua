@@ -7,8 +7,34 @@ local capabilities = require("blink.cmp").get_lsp_capabilities()
 local function on_attach(client, bufnr)
   vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 end
+
 ----------------------------------------------------------------------
--- 1. ty (Custom Python Type Checker)
+-- Harper (spelling) 
+----------------------------------------------------------------------
+vim.lsp.config("harper_ls", {
+  settings = {
+    ["harper-ls"] = {
+      userDictPath = "",
+      fileDictPath = "",
+      linters = {
+        BoringWords = true,
+      },
+      codeActions = {
+        ForceStable = false,
+      },
+      markdown = {
+        IgnoreLinkTitle = false,
+      },
+      diagnosticSeverity = "hint",
+      isolateEnglish = false,
+      dialect = "British",
+    },
+  },
+})
+vim.lsp.enable("harper_ls")
+
+----------------------------------------------------------------------
+-- ty (Custom Python Type Checker)
 ----------------------------------------------------------------------
 if not configs.ty then
   configs.ty = {
@@ -27,7 +53,7 @@ vim.lsp.config("ty", {
 vim.lsp.enable("ty")
 
 ----------------------------------------------------------------------
--- 2. nil_ls (Nix Language Server)
+-- nil_ls (Nix Language Server)
 ----------------------------------------------------------------------
 
 vim.lsp.config("nil_ls", {
@@ -44,7 +70,7 @@ vim.lsp.config("nil_ls", {
 vim.lsp.enable("nil_ls")
 
 ----------------------------------------------------------------------
--- 3. lua_ls
+-- lua_ls
 ----------------------------------------------------------------------
 
 vim.lsp.config("lua_ls", {
@@ -65,7 +91,7 @@ vim.lsp.config("lua_ls", {
 vim.lsp.enable("lua_ls")
 
 ----------------------------------------------------------------------
--- 4. dartls
+-- dartls
 ----------------------------------------------------------------------
 
 vim.lsp.config("dartls", {
@@ -76,7 +102,7 @@ vim.lsp.config("dartls", {
 vim.lsp.enable("dartls")
 
 ----------------------------------------------------------------------
--- 5. gopls
+-- gopls
 ----------------------------------------------------------------------
 
 vim.lsp.config("gopls", {
@@ -97,7 +123,7 @@ vim.lsp.config("gopls", {
 vim.lsp.enable("gopls")
 
 ----------------------------------------------------------------------
--- 6. jdtls (Java)
+-- jdtls (Java)
 ----------------------------------------------------------------------
 
 vim.lsp.config("jdtls", {
@@ -108,7 +134,7 @@ vim.lsp.config("jdtls", {
 vim.lsp.enable("jdtls")
 
 ----------------------------------------------------------------------
--- 7. rust_analyzer
+-- rust_analyzer
 ----------------------------------------------------------------------
 
 vim.lsp.config("rust_analyzer", {
