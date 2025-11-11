@@ -8,8 +8,8 @@
     settings = {
       background = [
         {
-          path = builtins.readFile /home/${username}/.cache/wal/wal;
-          blur_passes = 2;
+          path = "screenshot";
+          blur_passes = 4;
           blur_size = 4;
         }
       ];

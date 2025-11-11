@@ -3,8 +3,9 @@ vim.g.mapleader = " " -- Sets <Space> as the leader key
 ---------------------------
 -- Configure diagnostics --
 ---------------------------
-vim.o.updatetime = 300
-vim.cmd.colorscheme("neopywal")
+vim.opt.updatetime = 300
+vim.opt.termguicolors = true
+vim.cmd("colorscheme neopywal")
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -65,7 +66,7 @@ vim.api.nvim_set_keymap("n", "<Leader>us", ":%!sort<CR>", { noremap = true, sile
 vim.api.nvim_set_keymap(
   "n",
   "<Leader>ut",
-  ":belowright split | resize " .. math.floor(vim.o.lines / 3) .. " | terminal<CR>",
+  ":belowright split | resize " .. math.floor(vim.opt.lines / 3) .. " | terminal<CR>",
   { noremap = true, silent = true, desc = "[T]erminal" }
 )
 

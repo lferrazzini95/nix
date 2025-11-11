@@ -5,7 +5,7 @@ local util = require("lspconfig.util")
 -- Shared LSP config
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 local function on_attach(client, bufnr)
-  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
 end
 
 ----------------------------------------------------------------------

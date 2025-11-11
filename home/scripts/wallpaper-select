@@ -3,5 +3,5 @@
 FOLDER=$HOME/.local/share/wallpapers
 
 CHOICE=$(nsxiv -otb $FOLDER)
-
 wal -i $CHOICE --saturate 0.35
+swww img "$CHOICE"

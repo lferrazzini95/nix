@@ -4,6 +4,7 @@ require("nvim-treesitter.configs").setup({
   parser_install_dir = "~/.config/nvim/parsers/",
   highlight = {
     enable = true,
+    debounce_delay = 200,
   },
   rainbow = {
     enable = true,

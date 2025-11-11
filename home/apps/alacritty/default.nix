@@ -8,6 +8,9 @@ in {
           "/home/luca/.cache/wal/colors-alacritty.toml"
         ];
       };
+      colors = {
+        transparent_background_colors = true;
+      };
       terminal.shell = {
         program = "${pkgs.tmux}/bin/tmux";
         args = [
@@ -23,6 +26,12 @@ in {
           style = "Regular";
         };
         size = 11.0;
+      };
+      mouse = {
+        hide_when_typing = true;
+      };
+      env = {
+        TERM = "xterm-256color";
       };
 
       window = {

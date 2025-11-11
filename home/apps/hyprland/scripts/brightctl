@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+BRIGHTNESSCTL='/run/current-system/sw/bin/brightnessctl'
+current=$($BRIGHTNESSCTL -q g)
+max=$($BRIGHTNESSCTL -q m)
+step=5
+
+# Avoid division by zero
+if [ "$max" -eq 0 ]; then
+	exit 0
+fi
+
+percentage=$((100 * current / max))
+
+# Use a 1% step ONLY when close to max or min
+if [[ ("$1" == "down" && ("$percentage" -le 5 || "$percentage" -gt 95)) ||
+	    ("$1" == "up" && ("$percentage" -ge 95 || "$percentage" -lt 5)) ]]; then
+	step=1
+fi
+
+case "$1" in
+up) $BRIGHTNESSCTL -q s "${step}%+" ;;
+down) $BRIGHTNESSCTL -q s "${step}%-" ;;
+esac

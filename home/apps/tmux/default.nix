@@ -5,17 +5,15 @@ in
 {
   programs.tmux = {
     enable = true;
-    # Use 'screen-256color' or 'tmux-256color' for best compatibility with features.
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
     extraConfig =
-      # Multi-line string for all the config
       ''
         # --- File-based configuration ---
-        # This static file is still included
         ${builtins.readFile ./config/tmux.conf}
 
-        # --- Minimal Dynamic Configuration (Relies on Pywal-themed terminal) ---
-        set-option -a terminal-features 'alacritty:RGB'
+        # --- Minimal Dynamic Configuration ---
+        # set-option -a terminal-features 'screen-256color-bce'
+        # set-option -a terminal-features 'alacritty:RGB'
         # set -g status-interval 2
         
         # ---- Status Left (Requires explicit codes for Powerline separators) ----

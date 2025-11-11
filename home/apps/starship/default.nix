@@ -42,15 +42,10 @@ in {
 
       git_status = {
         format = "([\\[$all_status$ahead_behind\\] ]($style))";
-        # style = colors.red;
         conflicted = "";
-        # ahead = ''[''${count}](${colors.yellow})'';
-        # behind = ''[''${count}](${colors.yellow})'';
         ahead = ''[''${count}()]'';
         behind = ''[''${count}()]'';
-        # diverged = ''[''${ahead_count}''${behind_count}](${colors.yellow})'';
         diverged = ''[''${ahead_count}''${behind_count}()]'';
-        # staged = "[$count](${colors.green})";
         staged = "[$count]()";
         renamed = "󰑕";
         deleted = "󰆳";
@@ -69,13 +64,9 @@ in {
         disabled = false;
         format = "╱ [$symbol $state(\\($name\\)) ]($style)";
         symbol = "";
-        # style = "bold ${colors.cyan}";
         style = "bold";
-        # impure_msg = "[ ](bold ${colors.red})";
         impure_msg = "[ ](bold)";
-        # pure_msg = "[ ](bold ${colors.green})";
         pure_msg = "[ ](bold)";
-        # unknown_msg = "[ ](dimmed ${colors.yellow})";
         unknown_msg = "[ ](dimmed)";
       };
       golang = {
@@ -85,7 +76,6 @@ in {
       kubernetes = {
         disabled = false;
         format = "╱ [$context $symbol $namespace]($style)";
-        # style = colors.cyan;
         symbol = "󱃾";
       };
     };

@@ -8,7 +8,6 @@ in {
   programs = {
     waybar = {
       enable = true;
-      # Pass the CSS file content directly
       style = builtins.readFile ./style.css;
       settings = {
         mainBar = {
@@ -26,7 +25,6 @@ in {
               default = "●";
               active = "";
               empty = "○";
-              # ... other icons ...
             };
             persistent-workspaces = {
               "*" = 5;
@@ -37,11 +35,11 @@ in {
             format = "󰃞 {percent}%";
           };
           pulseaudio = {
-            format = "{icon}{volume}% {format_source}";
-            format-bluetooth = "{icon}󰂯{volume}% {format_source}";
+            format = "{icon} {volume}% {format_source}";
+            format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
             format-bluetooth-muted = " 󰂯{icon} {volume}% {format_source}";
-            format-muted = "  {volume}%{format_source}";
-            format-source = "󰍬{volume}%";
+            format-muted = "  {volume}% {format_source}";
+            format-source = "󰍬 {volume}%";
             format-source-muted = "󰍭";
             format-icons = {
               headphone = "";
@@ -74,7 +72,7 @@ in {
             format = "NET {ifname}";
             format-wifi = "{essid} 󰖩 ({signalStrength}%)";
             format-ethernet = "{ipaddr}/{cidr}";
-            format-disconnected = "NET <span color=\"#7c6f64\">disconnected</span>"; # fallback hardcoded color kept
+            format-disconnected = "NET <span color=\"#7c6f64\">disconnected</span>";
           };
           "custom/vpn" = {
             exec = "/home/${username}/.local/bin/vpn-status";
@@ -87,7 +85,12 @@ in {
               warning = 30;
               critical = 15;
             };
-            format = " {capacity}%";
+            format = "󱊢 {capacity}%";
+            format-critical = "󰂎 {capacity}%";
+            format-warning = "󱊡 {capacity}%";
+            format-full = "󱊣 {capacity}%";
+            format-charging = "󰂄 {capacity}%";
+
           };
           clock = {
             format = "{:%F %R}";
@@ -104,12 +107,6 @@ in {
       executable = true;
     };
   };
-  # home.file = {
-  #   ".config/waybar/waybar-wal-apply" = {
-  #     source = ./../scripts/waybar-wal-apply;
-  #     executable = true;
-  #   };
-  # };
   home.file = {
     "/home/${username}/.config/waybar/style-base.css" = {
       source = ./style.css;

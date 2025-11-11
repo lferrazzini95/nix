@@ -21,8 +21,8 @@ in {
       source = ./scripts/rofi-wifi-menu;
       executable = true;
     };
-    ".local/bin/power-menu" = {
-      source = ./scripts/power-menu;
+    ".local/bin/powerctl" = {
+      source = ./scripts/powerctl;
       executable = true;
     };
     ".local/bin/rofi-bluetooth" = {
@@ -33,16 +33,12 @@ in {
       source = ./scripts/vpn-selector;
       executable = true;
     };
-    ".local/bin/change-brightness" = {
-      source = ./scripts/change-brightness;
+    ".local/bin/brightctl" = {
+      source = ./scripts/brightctl;
       executable = true;
     };
     ".local/bin/screenshot" = {
       source = ./scripts/screenshot;
-      executable = true;
-    };
-    ".local/bin/quicknote" = {
-      source = ./scripts/quicknote;
       executable = true;
     };
   };
@@ -98,7 +94,8 @@ in {
         input = {
           kb_layout = "us";
           kb_variant = "alt-intl";
-          follow_mouse = 0;
+          follow_mouse = 2;
+          float_switch_override_focus = 0;
           touchpad = {
             disable_while_typing = false;
             natural_scroll = true;
@@ -120,12 +117,14 @@ in {
           "$mainMod, L, exec, hyprlock"
 
           # custom bindings
+          "$mainMod, W, exec, /home/${username}/.local/bin/walselect"
+          "$mainMod, T, exec, [workspace 1] alacritty"
+          "$mainMod, I, exec, [workspace 2] brave"
           "$mainMod, V, exec, /home/${username}/.local/bin/vpn-selector"
           "$mainMod, B, exec, /home/${username}/.local/bin/rofi-bluetooth"
-          "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
+          # "$mainMod, W, exec, /home/${username}/.local/bin/rofi-wifi-menu"
           "$mainMod, C, exec, /home/${username}/.local/bin/screenshot"
-          "$mainMod, P, exec, /home/${username}/.local/bin/power-menu"
-          "$mainMod, N, exec, /home/${username}/.local/bin/quicknote"
+          "$mainMod, P, exec, /home/${username}/.local/bin/powerctl"
 
           # ALT + Direction move focus
           ''$wm, L, movefocus, r''
@@ -170,10 +169,8 @@ in {
         bindle = [
           '', XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%+''
           '', XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-''
-          # '', XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s 1%-''
-          # '', XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c 'backlight' -d '*backlight*' s +1%''
-          '', XF86MonBrightnessDown, exec, /home/${username}/.local/bin/change-brightness down''
-          '', XF86MonBrightnessUp,   exec, /home/${username}/.local/bin/change-brightness up''
+          '', XF86MonBrightnessDown, exec, /home/${username}/.local/bin/brightctl down''
+          '', XF86MonBrightnessUp,   exec, /home/${username}/.local/bin/brightctl up''
         ];
         windowrulev2 = [
           "center, class:Zynaddsubfx"
@@ -185,17 +182,6 @@ in {
       xwayland = {
         enable = true;
       };
-      # extraConfig = ''
-      #   xwayland {
-      #     force_zero_scaling = true
-      #   }
-      # '';
-      # --- Autostart ---
-
-      # --- Basic Settings ---
-
-      # --- Keybindings ---
-      # This is the most important part.
     };
   };
 }

@@ -11,14 +11,14 @@
 window#waybar {
   background-color: rgba(0, 0, 0, 0.0);
   border-bottom: 0px;
-  color: @color7; /* foreground */
+  color: @color7;
   padding: 0 4px;
 }
 
 /* --- Workspaces --- */
 
 #workspaces {
-  background-color: @color0; /* module-background */
+  background-color: @color0;
   border-radius: 0 0 8px 8px;
 }
 
@@ -30,13 +30,13 @@ window#waybar {
 }
 
 #workspaces button.active {
-  color: @color11; /* workspace-active (green) */
+  color: @color11;
   font-size: 15px;
   text-shadow: 0 0 3px @color11;
 }
 
 #workspaces button:hover {
-  color: @color6; /* workspace-hover (cyan/aqua) */
+  color: @color6;
 }
 
 /* --- Modules --- */
@@ -57,22 +57,20 @@ window#waybar {
 
 #network {
   border-bottom-left-radius: 8px;
-  /* border-top-left-radius: 8px; */
 }
 
 #disk {
   border-bottom-right-radius: 8px;
-  /* border-top-right-radius: 8px; */
 }
 
 /* --- Battery Status --- */
 
 #battery.charging {
-  color: @color11; /* battery-charging (green) */
+  color: @color11;
 }
 
 #battery.plugged {
-  color: @color5; /* battery-plugged (purple) */
+  color: @color5;
 }
 
 @keyframes blink {
@@ -87,29 +85,29 @@ window#waybar {
   animation-iteration-count: infinite;
   animation-name: blink;
   animation-timing-function: steps(12);
-  color: @color1; /* battery-critical (red) */
+  color: red; 
 }
 
 /* --- Audio Status --- */
 
 #pulseaudio.muted {
-  color: @color8; /* audio-muted (grey) */
+  color: @color8;
 }
 
 #pulseaudio.source-muted {
-  color: @color1; /* audio-source-muted (red) */
+  color: @color1;
 }
 
 /* --- System Status --- */
 
 #idle_inhibitor.activated {
-  color: @color3; /* idle-activated (yellow) */
+  color: @color3;
 }
 
 #cpu.critical {
-  color: @color1; /* cpu-critical (red) */
+  color: @color1;
 }
 
 #memory.critical {
-  color: @color1; /* mem-critical (red) */
+  color: @color1;
 }
