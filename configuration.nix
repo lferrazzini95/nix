@@ -176,6 +176,7 @@
       "video"
       "audio"
       "syncthing-data"
+      "libvirtd"
     ];
     packages = with pkgs; [
     ];
@@ -256,8 +257,15 @@
   };
 
   # Virtualization
-  virtualisation.docker = {
-    enable = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+    libvirtd = {
+      enable = true;
+      qemuRunAsRoot = false;
+    };
+    spiceUSBRedirection.enable = true;
   };
 
   # System & Nix Settings
