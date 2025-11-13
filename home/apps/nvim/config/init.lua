@@ -66,8 +66,16 @@ vim.api.nvim_set_keymap("n", "<Leader>us", ":%!sort<CR>", { noremap = true, sile
 vim.api.nvim_set_keymap(
   "n",
   "<Leader>ut",
-  ":belowright split | resize " .. math.floor(vim.opt.lines / 3) .. " | terminal<CR>",
-  { noremap = true, silent = true, desc = "[T]erminal" }
+  "",
+  {
+    noremap = true,
+    silent = true,
+    desc = "[T]erminal",
+    callback = function()
+      local height = math.floor(vim.opt.lines:get() / 3)
+      vim.cmd("belowright split | resize " .. height .. " | terminal")
+    end
+  }
 )
 
 vim.api.nvim_create_autocmd("FileType", {

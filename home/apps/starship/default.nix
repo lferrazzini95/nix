@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
 in {
   programs.starship = {
     enable = true;
@@ -43,10 +40,11 @@ in {
       git_status = {
         format = "([\\[$all_status$ahead_behind\\] ]($style))";
         conflicted = "";
-        ahead = ''[''${count}()]'';
-        behind = ''[''${count}()]'';
-        diverged = ''[''${ahead_count}''${behind_count}()]'';
+        ahead = ''[''${count}]()'';
+        behind = ''[''${count}]()'';
+        diverged = ''[''${ahead_count}''${behind_count}]()'';
         staged = "[$count]()";
+        style = "bold";
         renamed = "󰑕";
         deleted = "󰆳";
       };
